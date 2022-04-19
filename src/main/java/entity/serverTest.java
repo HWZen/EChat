@@ -1,3 +1,5 @@
+package entity;
+
 import java.io.IOException;
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
@@ -9,7 +11,7 @@ import javax.websocket.server.ServerEndpoint;
 
 @ServerEndpoint(value="/websocketTest/{userId}")
 public class serverTest {
-    private static String userId;
+    private String userId;
 
     // new Connection
     @OnOpen
