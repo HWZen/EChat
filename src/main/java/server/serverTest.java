@@ -1,4 +1,4 @@
-package entity;
+package server;
 
 import java.io.IOException;
 import javax.websocket.OnClose;
@@ -11,12 +11,12 @@ import javax.websocket.server.ServerEndpoint;
 
 @ServerEndpoint(value="/websocketTest/{userId}")
 public class serverTest {
-    private String userId;
+    private static String userId;
 
     // new Connection
     @OnOpen
     public void onOpen(Session session, @PathParam("userId") String userId) {
-        this.userId = userId;
+        serverTest.userId = userId;
         System.out.println("Connected to user " + userId);
     }
 
