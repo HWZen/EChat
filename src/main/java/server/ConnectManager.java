@@ -1,16 +1,17 @@
 package server;
 
+import entity.Cookie;
+
 import javax.websocket.Session;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ConnectManager {
-    private static final Map<Session, String> connectMap = new HashMap<>();
+    private static final Map<Session, Cookie> connectMap = new HashMap<>();
 
 
-    public static boolean addConnect(Session session, String cookie) {
-        if(AuthorityManager.getCookie(cookie).equals(cookie)) {
+    public static boolean addConnect(Session session, Cookie cookie) {
+        if(AuthorityManager.GetUser(cookie) != null) {
             connectMap.put(session, cookie);
             return true;
         }
@@ -25,7 +26,7 @@ public class ConnectManager {
         connectMap.remove(session);
     }
 
-    public static String getUserName(Session session) {
+    public static Cookie getCookie(Session session) {
         return connectMap.get(session);
     }
 
@@ -33,9 +34,9 @@ public class ConnectManager {
         return connectMap.containsKey(session);
     }
 
-    public static Session getSession(String userName) {
-        for (Map.Entry<Session, String> entry : connectMap.entrySet()) {
-            if (entry.getValue().equals(userName)) {
+    public static Session getSession(Cookie cookie) {
+        for (Map.Entry<Session, Cookie> entry : connectMap.entrySet()) {
+            if (entry.getValue().equals(cookie)) {
                 return entry.getKey();
             }
         }

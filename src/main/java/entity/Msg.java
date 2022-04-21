@@ -4,22 +4,33 @@ import java.io.Serializable;
 
 public class Msg implements Serializable {
 
-    public enum AgentType{
-        USER,
-        GROUP,
-        Server
+    private User from;
 
-        }
+    private ChatSession to;
 
+    public Msg(User user, ChatSession group, String message) {
+        from = user;
+        to = group;
+        msg = message;
+    }
 
-    private String from;
-    private AgentType fromType;
+    public User getFrom() {
+        return from;
+    }
 
-    private String to;
-    private AgentType toType;
+    public void setFrom(User from) {
+        this.from = from;
+    }
+
+    public ChatSession getTo() {
+        return to;
+    }
+
+    public void setTo(ChatSession to) {
+        this.to = to;
+    }
 
     private String msg;
-
 
     public String getMsg() {
         return msg;
@@ -27,38 +38,6 @@ public class Msg implements Serializable {
 
     public void setMsg(String msg) {
         this.msg = msg;
-    }
-
-    public String getFrom() {
-        return from;
-    }
-
-    public void setFrom(String from) {
-        this.from = from;
-    }
-
-    public AgentType getFromType() {
-        return fromType;
-    }
-
-    public void setFromType(AgentType fromType) {
-        this.fromType = fromType;
-    }
-
-    public String getTo() {
-        return to;
-    }
-
-    public void setTo(String to) {
-        this.to = to;
-    }
-
-    public AgentType getToType() {
-        return toType;
-    }
-
-    public void setToType(AgentType toType) {
-        this.toType = toType;
     }
 }
 
