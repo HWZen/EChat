@@ -27,16 +27,13 @@ public class AuthorityManager {
         return authenticatedLogin.containsKey(user);
     }
 
-    public static boolean addAuthenticatedLogin(String userName, String password, String cookie) {
+    public static boolean addAuthenticatedLogin(String userName, String password, String cookie) throws SQLException {
         User user = userGetor.byId(userName);
-        if (user == null || isLogin(user)) {
+        if (user == null) {
             return false;
         }
-        if (user.getPassword().equals(password)) {
-            authenticatedLogin.put(user, new Cookie(cookie));
-            return true;
-        }
-        return false;
+        authenticatedLogin.put(user, new Cookie(cookie));
+        return true;
     }
 
     public static void removeAuthenticatedLogin(User user) {

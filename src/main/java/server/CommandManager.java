@@ -23,7 +23,7 @@ public class CommandManager {
     }
 
 
-    static public void logout(String userID) {
+    static public void logout(String userID) throws SQLException {
         User user = userInter.byId(userID);
         if (AuthorityManager.isLogin(user)) {
             AuthorityManager.removeAuthenticatedLogin(user);
@@ -32,26 +32,39 @@ public class CommandManager {
 
     }
 
-    boolean login(String userName, String password, String cookie){
-        return AuthorityManager.addAuthenticatedLogin(userName, password, cookie);
+    static public boolean login(String userId, String password, String cookie) throws SQLException {
+        User user = userInter.byId(userId);
+        if(user == null || !user.getPassword().equals(password))
+            return false;
+        if(AuthorityManager.isLogin(user)) {
+            Cookie c = AuthorityManager.getCookie(user);
+            if (ConnectManager.getSession(c) != null)
+                return false;
+        }
+        return AuthorityManager.addAuthenticatedLogin(userId, password, cookie);
     }
 
-    boolean createGroup(Session session, String groupName, List<String> userIds){
-        Cookie c = ConnectManager.getCookie(session);
-        User user = AuthorityManager.GetUser(c);
+    static public boolean signUp(String userId, String nickname, String passwd) throws SQLException {
+        User user = new User(userId, nickname, passwd);
+        return userInter.addUser(user);
+    }
+
+    static public boolean createGroup(String cookie, String groupName, List<String> userIds) throws SQLException {
+        User user = AuthorityManager.GetUser(new Cookie(cookie));
         if(user == null)
             return false;
         chatSessionInter.createSession(groupName, user, userIds);
         return true;
     }
 
-    boolean deleteGroup(Session session, String groupId){
-        Cookie c = ConnectManager.getCookie(session);
-        User user = AuthorityManager.GetUser(c);
+    static public boolean deleteGroup(String cookie, String groupId) throws SQLException {
+        User user = AuthorityManager.GetUser(new Cookie(cookie));
         if(user == null)
             return false;
-        chatSessionInter.deleteSession(user, groupId);
-        return true;
+        ChatSession group = chatSessionInter.byId(groupId);
+        if(group.getOwnerId().equals(user.getId())) {
+            return chatSessionInter.deleteSession(groupId);
+        }
+        else return false;
     }
-
 }

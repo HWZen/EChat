@@ -12,6 +12,7 @@ import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Date;
 
 
 @ServerEndpoint("/chat/{Cookie}")
@@ -56,7 +57,7 @@ public class WebsocketDriver {
     *   }
     * */
     @OnMessage
-    public void onMessage(String message, Session session){
+    public void onMessage(String message, Session session) throws SQLException {
         JSONObject object = JSONObject.parseObject(message);
         User user = userInter.byId(object.getString("from"));
         if(user == null){
@@ -64,7 +65,7 @@ public class WebsocketDriver {
             throw new RuntimeException("User not found: " + object.getString("from"));
         }
         ChatSession chatSession = chatSessionInter.byId(object.getString("to"));
-        Msg msg = new Msg(user, chatSession, object.getString("message"));
+        Msg msg = new Msg(user.getId(), chatSession.getId(), new Date(),object.getString("message"));
         MessageManager.recvMessage(msg);
     }
 
@@ -84,7 +85,7 @@ public class WebsocketDriver {
         JSONObject object = new JSONObject();
         object.put("from", msg.getFrom().getId());
         object.put("to", msg.getTo().getId());
-        object.put("message", msg.getMsg());
+        object.put("message", msg.getContent());
         session.getAsyncRemote().sendText(object.toJSONString());
     }
 }
