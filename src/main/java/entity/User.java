@@ -4,10 +4,15 @@ import java.io.Serializable;
 
 public class User implements Serializable {
 
+    private String userId;
     private String nickname;
     private String password;
-    private String id;
 
+    public User(String userId, String nickname, String password) {
+        this.userId=userId;
+        this.nickname=nickname;
+        this.password=password;
+    }
 
     public String getNickname() {
         return nickname;
@@ -26,10 +31,10 @@ public class User implements Serializable {
     }
 
     public String getId() {
-        return id;
+        return userId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUserId(String id) {
+        this.userId = id;
     }
 }

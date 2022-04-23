@@ -29,7 +29,7 @@ public class DatabaseStructure {
 
     // Column names
     public static final String COLUMN_USER_ID = "user_id";
-    public static final String COLUMN_USER_NAME = "user_name";
+    public static final String COLUMN_NICKNAME = "user_name";
     public static final String COLUMN_PASSWORD = "password";
 
     public static final String COLUMN_SESSION_ID = "SESSION_id";

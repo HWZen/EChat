@@ -1,43 +1,60 @@
 package entity;
 
+import entity.sql.UserInterImpl;
+import entity.sql.ChatSessionInterImpl;
+
 import java.io.Serializable;
+import java.sql.SQLException;
+import java.util.Date;
 
 public class Msg implements Serializable {
 
-    private User from;
+    private String fromUserId;
+    private String toSessionId;
+    private Date sendTime;
+    private String content;
 
-    private ChatSession to;
 
-    public Msg(User user, ChatSession group, String message) {
-        from = user;
-        to = group;
-        msg = message;
+
+    public Msg(String fromUserId, String toSessionId, Date sendTime, String content) {
+        this.fromUserId = fromUserId;
+        this.toSessionId = toSessionId;
+        this.sendTime = sendTime;
+        this.content = content;
     }
 
     public User getFrom() {
-        return from;
+        try {
+            return new UserInterImpl().byId(fromUserId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
-    public void setFrom(User from) {
-        this.from = from;
+    public String getFromUserId(){
+        return this.fromUserId;
     }
 
     public ChatSession getTo() {
-        return to;
+        try {
+            return new ChatSessionInterImpl().byId(toSessionId);
+        }catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
-    public void setTo(ChatSession to) {
-        this.to = to;
+    public String getToSessionId(){
+        return this.toSessionId;
     }
 
-    private String msg;
-
-    public String getMsg() {
-        return msg;
+    public Date getSendTime() {
+        return sendTime;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public String getContent() {
+        return content;
     }
 }
 

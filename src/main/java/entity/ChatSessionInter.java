@@ -1,20 +1,23 @@
 package entity;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import entity.sql.DatabaseStructure;
 
+import javax.websocket.Session;
+
 public interface ChatSessionInter {
 
-    ChatSession byId(String id);
+    ChatSession byId(String id) throws SQLException;
 
-    void createSession(String name, User owner, List<String> membersId);
+    void createSession(String sessionName, User owner, List<String> memberIds) throws SQLException;
 
-    String getSessionOwner(String id);
+    boolean updateSessionMember(String sessionId ,List<String> memberIds) throws SQLException;
 
-    boolean updateSession(User owner, List<String> members);
+    boolean updateSessionName(String sessionId ,String sessionName) throws SQLException;
 
-    boolean updateSession(User owner, String newName);
+    boolean deleteSession(String sessionId) throws SQLException;
 
-    boolean deleteSession(User owner, String id);
+    boolean isSessionPrivate(String sessionId) throws SQLException;
 }

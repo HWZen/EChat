@@ -4,6 +4,21 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class SQLDriver {
+    public static Connection SQLConnection;
+
+    static {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            SQLConnection = java.sql.DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/echat?useUnicode=true&characterEncoding=utf-8", "admin", "admin");
+            System.out.println("Connected to MySQL Successfully!");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     private String host;
     private int port;
     private String database;

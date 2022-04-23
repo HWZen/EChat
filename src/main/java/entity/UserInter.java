@@ -1,12 +1,16 @@
 package entity;
 
+import java.sql.SQLException;
+
 public interface UserInter {
 
-    User byId(String id);
+    User byId(String id)throws SQLException;
 
-    void addUser(User user);
+    boolean addUser(User user)throws SQLException;
 
-    void updateUser(User user);
+    boolean updateUser(User user)throws SQLException;
 
-    void deleteUser(User user);
+    boolean deleteUser(User user)throws SQLException;
+
+    boolean leaveSession(User user,String sessionId)throws SQLException;
 }

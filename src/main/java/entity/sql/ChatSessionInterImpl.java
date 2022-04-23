@@ -15,21 +15,56 @@ public class ChatSessionInterImpl implements ChatSessionInter {
     private Connection SQLConnection;
 
     public ChatSessionInterImpl() throws SQLException {
-        SQLDriver driver = new SQLDriver();
-        SQLConnection = driver.getConnection();
+        SQLConnection = SQLDriver.SQLConnection;
+    }
+
+    public ChatSessionInterImpl(Connection SQLConnection) throws SQLException {
+        this.SQLConnection = SQLConnection;
+    }
+
+    private int countMembers(String sessionId) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM " + DatabaseStructure.TABLE_SESSION_MEMBER +
+                " WHERE " + DatabaseStructure.COLUMN_SESSION_ID + " = ?";
+        PreparedStatement preparedStatement = SQLConnection.prepareStatement(sql);
+        preparedStatement.setString(1, sessionId);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next())
+            return resultSet.getInt(1);
+        return 0;
+    }
+
+    private int deleteMembersById(String sessionId) throws SQLException {
+        String sql = "DELETE FROM " + DatabaseStructure.TABLE_SESSION +
+                " WHERE " + DatabaseStructure.COLUMN_SESSION_ID + " = ?";
+        PreparedStatement preparedStatement = SQLConnection.prepareStatement(sql);
+        preparedStatement.setString(1, sessionId);
+        return preparedStatement.executeUpdate();
+    }
+
+    private int[] insertSessionMembers(String sessionId, List<String> membersIds) throws SQLException {
+        String sql = "INSERT INTO " + DatabaseStructure.TABLE_SESSION_MEMBER +
+                " (" + DatabaseStructure.COLUMN_SESSION_ID + ", " + DatabaseStructure.COLUMN_USER_ID + ") " +
+                "VALUES (?, ?)";
+        PreparedStatement preparedStatement = SQLConnection.prepareStatement(sql);
+        for (String memberId : membersIds) {
+            preparedStatement.setString(1, sessionId);
+            preparedStatement.setString(2, memberId);
+            preparedStatement.addBatch();
+        }
+        return preparedStatement.executeBatch();
     }
 
     @Override
-    public ChatSession byId(String id) {
+    public ChatSession byId(String id) throws SQLException {
         String sessionName = "";
         String ownerId = "";
-        List<User> sessionMembers = new ArrayList<>();
+        List<String> sessionMembers = new ArrayList<>();
 
-        String sql_1 = "SELECT * " +
-                " FROM " + DatabaseStructure.TABLE_SESSION +
-                " WHERE " + DatabaseStructure.COLUMN_SESSION_ID + " = ?";
-        try {
-            PreparedStatement preparedStatement = SQLConnection.prepareStatement(sql_1);
+        {
+            String sql = "SELECT * " +
+                    " FROM " + DatabaseStructure.TABLE_SESSION +
+                    " WHERE " + DatabaseStructure.COLUMN_SESSION_ID + " = ?";
+            PreparedStatement preparedStatement = SQLConnection.prepareStatement(sql);
             preparedStatement.setString(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -37,124 +72,83 @@ public class ChatSessionInterImpl implements ChatSessionInter {
                 ownerId = resultSet.getString(DatabaseStructure.COLUMN_OWNER_ID);
             } else
                 return null;
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
 
-        String sql_2 = "SELECT " + DatabaseStructure.COLUMN_USER_ID +
-                " FROM " + DatabaseStructure.TABLE_SESSION_MEMBER +
-                " WHERE " + DatabaseStructure.COLUMN_SESSION_ID + " = ?";
-        try {
-            PreparedStatement preparedStatement = SQLConnection.prepareStatement(sql_2);
+        {
+            String sql = "SELECT " + DatabaseStructure.COLUMN_USER_ID +
+                    " FROM " + DatabaseStructure.TABLE_SESSION_MEMBER +
+                    " WHERE " + DatabaseStructure.COLUMN_SESSION_ID + " = ?";
+            PreparedStatement preparedStatement = SQLConnection.prepareStatement(sql);
             preparedStatement.setString(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                UserInterImpl userInter = new UserInterImpl();
-                User user = userInter.byId(resultSet.getString(DatabaseStructure.COLUMN_USER_ID));
-                sessionMembers.add(user);
+                sessionMembers.add(resultSet.getString(DatabaseStructure.COLUMN_USER_ID));
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
 
         return new ChatSession(id, sessionName, ownerId, sessionMembers);
     }
 
     @Override
-    public void createSession(String name, User owner, List<String> membersIds) {
-        String sql_1 = "INSERT INTO " + DatabaseStructure.TABLE_SESSION +
-                " (" + DatabaseStructure.COLUMN_SESSION_NAME + ", " +
-                DatabaseStructure.COLUMN_OWNER_ID + ") " +
-                " VALUES (?, ?)";
-        try {
-            PreparedStatement preparedStatement = SQLConnection.prepareStatement(sql_1);
+    public void createSession(String name, User owner, List<String> membersIds) throws SQLException {
+        {
+            String sql = "INSERT INTO " + DatabaseStructure.TABLE_SESSION +
+                    " (" + DatabaseStructure.COLUMN_SESSION_NAME + ", " +
+                    DatabaseStructure.COLUMN_OWNER_ID + ") " +
+                    " VALUES (?, ?)";
+            PreparedStatement preparedStatement = SQLConnection.prepareStatement(sql);
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, owner.getId());
             preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
 
-        String sql_2 = "IDENT_CURRENT('" + DatabaseStructure.TABLE_SESSION + "')";
-        try {
-            PreparedStatement preparedStatement = SQLConnection.prepareStatement(sql_2);
-            preparedStatement.
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-
-        String sql_3 = "INSERT INTO " + DatabaseStructure.TABLE_SESSION_MEMBER +
-                " (" + DatabaseStructure.COLUMN_SESSION_ID + ", " +
-                DatabaseStructure.COLUMN_USER_ID + ") " +
-                " VALUES (?, ?)";
-        for (String membersId : membersIds) {
-            try {
-                PreparedStatement preparedStatement = SQLConnection.prepareStatement(sql_3);
-                preparedStatement.setString(1, );
-                preparedStatement.setString(2, membersId);
-                preparedStatement.executeUpdate();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+        {
+            String sql = "select @@IDENTITY";
+            PreparedStatement preparedStatement = SQLConnection.prepareStatement(sql);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next())
+                insertSessionMembers(resultSet.getString(1), membersIds);
         }
     }
 
     @Override
-    public boolean updateSession(User owner, ChatSession session) {
-        if (owner.getId().equals(getSessionOwner(session.getId()))) {
-            deleteSession(owner, session.getId());
-            createSession(session);
-            return true;
-        } else
+    public boolean updateSessionMember(String sessionId, List<String> memberIds) throws SQLException {
+        return deleteMembersById(sessionId) == countMembers(sessionId) &&
+                insertSessionMembers(sessionId, memberIds).length == memberIds.size();
+    }
+
+    @Override
+    public boolean updateSessionName(String sessionId, String sessionName) throws SQLException {
+        String sql = "UPDATE " + DatabaseStructure.TABLE_SESSION +
+                " SET " + DatabaseStructure.COLUMN_SESSION_NAME + " = ?" +
+                " WHERE " + DatabaseStructure.COLUMN_SESSION_ID + " = ?";
+        PreparedStatement preparedStatement = SQLConnection.prepareStatement(sql);
+        preparedStatement.setString(1, sessionName);
+        preparedStatement.setString(2, sessionId);
+        return preparedStatement.executeUpdate() == 1;
+    }
+
+    @Override
+    public boolean deleteSession(String sessionId) throws SQLException {
+        if (deleteMembersById(sessionId) != countMembers(sessionId))
             return false;
+        String sql = "DELETE FROM " + DatabaseStructure.TABLE_SESSION +
+                " WHERE " + DatabaseStructure.COLUMN_SESSION_ID + " = ?";
+        PreparedStatement preparedStatement = SQLConnection.prepareStatement(sql);
+        preparedStatement.setString(1, sessionId);
+        return preparedStatement.executeUpdate() == 1;
     }
 
     @Override
-    public boolean deleteSession(User owner, String id) {
-        if (owner.getId().equals(getSessionOwner(id))) {
-            String sql_1 = "DELETE FROM " + DatabaseStructure.TABLE_SESSION_MEMBER +
-                    " WHERE " + DatabaseStructure.COLUMN_SESSION_ID + " = ?";
-            try {
-                PreparedStatement preparedStatement = SQLConnection.prepareStatement(sql_1);
-                preparedStatement.setString(1, id);
-                preparedStatement.executeUpdate();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-            String sql_2 = "DELETE FROM " + DatabaseStructure.TABLE_SESSION +
-                    " WHERE " + DatabaseStructure.COLUMN_SESSION_ID + " = ?";
-            try {
-                PreparedStatement preparedStatement = SQLConnection.prepareStatement(sql_2);
-                preparedStatement.setString(1, id);
-                preparedStatement.executeUpdate();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-
-            return true;
-        } else
-            return false;
-    }
-
-    @Override
-    public String getSessionOwner(String id) {
+    public boolean isSessionPrivate(String sessionId) throws SQLException {
         String sql = "SELECT " + DatabaseStructure.COLUMN_OWNER_ID +
                 " FROM " + DatabaseStructure.TABLE_SESSION +
                 " WHERE " + DatabaseStructure.COLUMN_SESSION_ID + " = ?";
-        try {
-            PreparedStatement preparedStatement = SQLConnection.prepareStatement(sql);
-            preparedStatement.setString(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                return resultSet.getString(DatabaseStructure.COLUMN_OWNER_ID);
-            } else
-                return null;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
+        PreparedStatement preparedStatement = SQLConnection.prepareStatement(sql);
+        preparedStatement.setString(1, sessionId);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next())
+            return resultSet.getString(1) == null;
+        return false;
     }
-
 }
