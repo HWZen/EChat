@@ -35,6 +35,8 @@ public class ConnectManager {
     }
 
     public static Session getSession(Cookie cookie) {
+        if(cookie == null)
+            return null;
         for (Map.Entry<Session, Cookie> entry : connectMap.entrySet()) {
             if (entry.getValue().equals(cookie)) {
                 return entry.getKey();

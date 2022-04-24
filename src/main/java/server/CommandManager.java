@@ -23,12 +23,21 @@ public class CommandManager {
     }
 
 
-    static public void logout(String userID) throws SQLException {
+    static public boolean logout(String userID, String cookie) throws SQLException {
         User user = userInter.byId(userID);
         if (AuthorityManager.isLogin(user)) {
-            AuthorityManager.removeAuthenticatedLogin(user);
-        } else
+            Cookie c = AuthorityManager.getCookie(user);
+            if(c != null && c.str.equals(cookie)) {
+                AuthorityManager.removeAuthenticatedLogin(user);
+            }else {
+                System.out.println("cookie not match");
+                return false;
+            }
+        } else{
             System.out.println("User is not login");
+            return false;
+        }
+        return true;
 
     }
 
@@ -41,7 +50,7 @@ public class CommandManager {
             if (ConnectManager.getSession(c) != null)
                 return false;
         }
-        return AuthorityManager.addAuthenticatedLogin(userId, password, cookie);
+        return AuthorityManager.addAuthenticatedLogin(user, cookie);
     }
 
     static public boolean signUp(String userId, String nickname, String passwd) throws SQLException {

@@ -2,24 +2,10 @@ package server;
 
 import entity.Cookie;
 import entity.User;
-import entity.UserInter;
-import entity.sql.UserInterImpl;
-
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class AuthorityManager {
-
-    private static UserInter userGetor;
-
-    static {
-        try {
-            userGetor = new UserInterImpl();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
     private static final Map<User, Cookie> authenticatedLogin = new HashMap<>();
 
@@ -27,11 +13,7 @@ public class AuthorityManager {
         return authenticatedLogin.containsKey(user);
     }
 
-    public static boolean addAuthenticatedLogin(String userName, String password, String cookie) throws SQLException {
-        User user = userGetor.byId(userName);
-        if (user == null) {
-            return false;
-        }
+    public static boolean addAuthenticatedLogin(User user, String cookie) {
         authenticatedLogin.put(user, new Cookie(cookie));
         return true;
     }
