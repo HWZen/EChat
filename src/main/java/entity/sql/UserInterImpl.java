@@ -21,7 +21,9 @@ public class UserInterImpl implements UserInter {
 
     @Override
     public User byId(String id) throws SQLException {
-        String sql = "SELECT * FROM users WHERE id=?";
+        String sql = "SELECT *" +
+                " FROM " + DatabaseStructure.TABLE_USER
+                + " WHERE " + DatabaseStructure.COLUMN_USER_ID + " = ?";
         PreparedStatement preparedStatement = SQLConnection.prepareStatement(sql);
         preparedStatement.setString(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -59,28 +61,28 @@ public class UserInterImpl implements UserInter {
 
     @Override
     public boolean deleteUser(User user) throws SQLException {
-        // 删除用户拥有的Session
-        {
-            String sql = "SELECT " + DatabaseStructure.COLUMN_SESSION_ID +
-                    " FROM " + DatabaseStructure.TABLE_SESSION +
-                    " WHERE " + DatabaseStructure.COLUMN_USER_ID + "=?";
-            PreparedStatement preparedStatement = SQLConnection.prepareStatement(sql);
-            preparedStatement.setString(1, user.getId());
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                String sessionId = resultSet.getString(DatabaseStructure.COLUMN_SESSION_ID);
-                new ChatSessionInterImpl(SQLConnection).deleteSession(sessionId);
-            }
-        }
-
-        // 退出用户加入的 Session
-        {
-            String sql = "DELETE FROM " + DatabaseStructure.TABLE_SESSION_MEMBER +
-                    " WHERE " + DatabaseStructure.COLUMN_USER_ID + "=?";
-            PreparedStatement preparedStatement = SQLConnection.prepareStatement(sql);
-            preparedStatement.setString(1, user.getId());
-            preparedStatement.executeUpdate();
-        }
+//        // 删除用户拥有的Session
+//        {
+//            String sql = "SELECT " + DatabaseStructure.COLUMN_SESSION_ID +
+//                    " FROM " + DatabaseStructure.TABLE_SESSION +
+//                    " WHERE " + DatabaseStructure.COLUMN_USER_ID + "=?";
+//            PreparedStatement preparedStatement = SQLConnection.prepareStatement(sql);
+//            preparedStatement.setString(1, user.getId());
+//            ResultSet resultSet = preparedStatement.executeQuery();
+//            while (resultSet.next()) {
+//                String sessionId = resultSet.getString(DatabaseStructure.COLUMN_SESSION_ID);
+//                new ChatSessionInterImpl(SQLConnection).deleteSession(sessionId);
+//            }
+//        }
+//
+//        // 退出用户加入的 Session
+//        {
+//            String sql = "DELETE FROM " + DatabaseStructure.TABLE_SESSION_MEMBER +
+//                    " WHERE " + DatabaseStructure.COLUMN_USER_ID + "=?";
+//            PreparedStatement preparedStatement = SQLConnection.prepareStatement(sql);
+//            preparedStatement.setString(1, user.getId());
+//            preparedStatement.executeUpdate();
+//        }
 
         // 删除用户
         {

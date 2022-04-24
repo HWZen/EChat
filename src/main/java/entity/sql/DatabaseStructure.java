@@ -10,8 +10,8 @@ public class DatabaseStructure {
 
     // Table names
     public static final String TABLE_USER = "user";
-    public static final String TABLE_SESSION = "SESSION";
-    public static final String TABLE_SESSION_MEMBER = "SESSION_member";
+    public static final String TABLE_SESSION = "session";
+    public static final String TABLE_SESSION_MEMBER = "session_member";
     public static final String TABLE_LOG = "log";
 
     public enum UserColumn{
@@ -32,8 +32,8 @@ public class DatabaseStructure {
     public static final String COLUMN_NICKNAME = "user_name";
     public static final String COLUMN_PASSWORD = "password";
 
-    public static final String COLUMN_SESSION_ID = "SESSION_id";
-    public static final String COLUMN_SESSION_NAME = "SESSION_name";
+    public static final String COLUMN_SESSION_ID = "session_id";
+    public static final String COLUMN_SESSION_NAME = "session_name";
     public static final String COLUMN_OWNER_ID = "owner_id";
 
     public static final String COLUMN_LOG_CONTENT = "log_content";

@@ -130,8 +130,8 @@ public class ChatSessionInterImpl implements ChatSessionInter {
 
     @Override
     public boolean deleteSession(String sessionId) throws SQLException {
-        if (deleteMembersById(sessionId) != countMembers(sessionId))
-            return false;
+//        if (deleteMembersById(sessionId) != countMembers(sessionId))
+//            return false;
         String sql = "DELETE FROM " + DatabaseStructure.TABLE_SESSION +
                 " WHERE " + DatabaseStructure.COLUMN_SESSION_ID + " = ?";
         PreparedStatement preparedStatement = SQLConnection.prepareStatement(sql);
