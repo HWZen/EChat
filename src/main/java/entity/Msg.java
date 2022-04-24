@@ -6,6 +6,7 @@ import entity.sql.ChatSessionInterImpl;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.Objects;
 
 public class Msg implements Serializable {
 
@@ -14,7 +15,18 @@ public class Msg implements Serializable {
     private Date sendTime;
     private String content;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Msg)) return false;
+        Msg msg = (Msg) o;
+        return getFromUserId().equals(msg.getFromUserId()) && getToSessionId().equals(msg.getToSessionId()) && Objects.equals(getSendTime(), msg.getSendTime()) && getContent().equals(msg.getContent());
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(getFromUserId(), getToSessionId(), getSendTime(), getContent());
+    }
 
     public Msg(String fromUserId, String toSessionId, Date sendTime, String content) {
         this.fromUserId = fromUserId;

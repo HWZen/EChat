@@ -1,6 +1,7 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class User implements Serializable {
 
@@ -36,5 +37,18 @@ public class User implements Serializable {
 
     public void setUserId(String id) {
         this.userId = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return userId.equals(user.userId) && getNickname().equals(user.getNickname()) && getPassword().equals(user.getPassword());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userId, getNickname(), getPassword());
     }
 }
