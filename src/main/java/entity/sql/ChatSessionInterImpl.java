@@ -112,6 +112,27 @@ public class ChatSessionInterImpl implements ChatSessionInter {
     }
 
     @Override
+    public boolean createSession(String sessionName, User owner, List<String> memberIds, String id) throws SQLException {
+        {
+            String sql = "INSERT INTO " + DatabaseStructure.TABLE_SESSION +
+                    " (" + DatabaseStructure.COLUMN_SESSION_ID + ", " +
+                    DatabaseStructure.COLUMN_SESSION_NAME + ", " +
+                    DatabaseStructure.COLUMN_OWNER_ID + ") " +
+                    " VALUES (?, ?, ?)";
+            PreparedStatement preparedStatement = SQLConnection.prepareStatement(sql);
+            preparedStatement.setString(1, id);
+            preparedStatement.setString(2, sessionName);
+            preparedStatement.setString(3, owner.getId());
+            preparedStatement.executeUpdate();
+        }
+
+        {
+            insertSessionMembers(id, memberIds);
+        }
+        return true;
+    }
+
+    @Override
     public boolean updateSessionMember(String sessionId, List<String> memberIds) throws SQLException {
         return deleteMembersById(sessionId) == countMembers(sessionId) &&
                 insertSessionMembers(sessionId, memberIds).length == memberIds.size();
