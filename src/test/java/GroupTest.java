@@ -1,11 +1,13 @@
 import entity.*;
 import entity.sql.ChatSessionInterImpl;
+import entity.sql.MsgInterImpl;
 import entity.sql.UserInterImpl;
 import org.testng.annotations.Test;
 import server.CommandManager;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Test
@@ -13,6 +15,7 @@ public class GroupTest {
 
     private final ChatSessionInter chatSessionInter = new ChatSessionInterImpl();
     private final UserInter userInter = new UserInterImpl();
+    private final MsgInter msgInter = new MsgInterImpl();
     private final String cookie = "TEST_COOKIE";
 
 
@@ -53,13 +56,30 @@ public class GroupTest {
         assert chatSession.getOwnerId().equals(users[0].getId());
     }
 
+    public void groupChatTest() throws SQLException {
+        int size = msgInter.bySessionId("-1").size();
+        Msg msg = new Msg("test0@qq.com", "-1", new Date(), "Hello, I'm test0");
+        Msg msg2 = new Msg("test1@qq.com", "-1", new Date(), "Hello, I'm test1");
+        assert msgInter.add(msg);
+        assert msgInter.add(msg2);
+
+        List<Msg> msgs = msgInter.bySessionId("-1");
+
+        assert msgs.size() == 2 + size;
+
+
+
+    }
+
     public void deleteGroup() throws SQLException {
         System.out.println("deleteGroup");
         ChatSessionInter chatSessionInter = new ChatSessionInterImpl();
         ChatSession chatSession = chatSessionInter.byId("-1");
         assert chatSession != null;
+        msgInter.add(new Msg("test0@qq.com", "-1", new Date(), "Hello, I'm test0 in delete"));
         assert CommandManager.deleteGroup(cookie, "-1");
         assert chatSessionInter.byId("-1") == null;
+        assert msgInter.bySessionId("-1").size() == 0;
 
 
         User user = userInter.byId(chatSession.getOwnerId());

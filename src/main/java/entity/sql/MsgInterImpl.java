@@ -4,10 +4,7 @@ import entity.ChatSession;
 import entity.Msg;
 import entity.MsgInter;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -59,7 +56,7 @@ public class MsgInterImpl implements MsgInter {
         PreparedStatement preparedStatement = SQLConnection.prepareStatement(sql);
         preparedStatement.setString(1, msg.getFromUserId());
         preparedStatement.setString(2, msg.getToSessionId());
-        preparedStatement.setDate(3, new java.sql.Date(msg.getSendTime().getTime()));
+        preparedStatement.setTimestamp(3, new Timestamp(msg.getSendTime().getTime()));
         preparedStatement.setString(4, msg.getContent());
         return preparedStatement.executeUpdate() == 1;
     }
