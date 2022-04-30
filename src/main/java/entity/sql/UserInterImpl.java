@@ -36,7 +36,7 @@ public class UserInterImpl implements UserInter {
     }
 
     @Override
-    public boolean addUser(User user) throws SQLException {
+    public boolean createUser(User user) throws SQLException {
         String sql = "INSERT INTO " + DatabaseStructure.TABLE_USER +
                 " (" + DatabaseStructure.COLUMN_USER_ID + ", " + DatabaseStructure.COLUMN_NICKNAME + ", " + DatabaseStructure.COLUMN_PASSWORD + ") " +
                 "VALUES (?, ?, ?)";

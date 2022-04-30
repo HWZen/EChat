@@ -34,7 +34,7 @@ public class ChatSessionInterImpl implements ChatSessionInter {
     }
 
     private int deleteMembersById(String sessionId) throws SQLException {
-        String sql = "DELETE FROM " + DatabaseStructure.TABLE_SESSION +
+        String sql = "DELETE FROM " + DatabaseStructure.TABLE_SESSION_MEMBER +
                 " WHERE " + DatabaseStructure.COLUMN_SESSION_ID + " = ?";
         PreparedStatement preparedStatement = SQLConnection.prepareStatement(sql);
         preparedStatement.setString(1, sessionId);
@@ -90,7 +90,7 @@ public class ChatSessionInterImpl implements ChatSessionInter {
     }
 
     @Override
-    public void createSession(String name, User owner, List<String> membersIds) throws SQLException {
+    public String createSession(String name, User owner, List<String> membersIds) throws SQLException {
         {
             String sql = "INSERT INTO " + DatabaseStructure.TABLE_SESSION +
                     " (" + DatabaseStructure.COLUMN_SESSION_NAME + ", " +
@@ -102,13 +102,18 @@ public class ChatSessionInterImpl implements ChatSessionInter {
             preparedStatement.executeUpdate();
         }
 
+        String id = null;
         {
             String sql = "select @@IDENTITY";
             PreparedStatement preparedStatement = SQLConnection.prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next())
-                insertSessionMembers(resultSet.getString(1), membersIds);
+            if (resultSet.next()) {
+                id = resultSet.getString(1);
+                insertSessionMembers(id, membersIds);
+            }
         }
+        return id;
+
     }
 
     @Override
@@ -134,7 +139,7 @@ public class ChatSessionInterImpl implements ChatSessionInter {
 
     @Override
     public boolean updateSessionMember(String sessionId, List<String> memberIds) throws SQLException {
-        return deleteMembersById(sessionId) == countMembers(sessionId) &&
+        return countMembers(sessionId) == deleteMembersById(sessionId) &
                 insertSessionMembers(sessionId, memberIds).length == memberIds.size();
     }
 

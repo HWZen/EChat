@@ -11,7 +11,9 @@ public interface ChatSessionInter {
 
     ChatSession byId(String id) throws SQLException;
 
-    void createSession(String sessionName, User owner, List<String> memberIds) throws SQLException;
+    String createSession(String sessionName, User owner, List<String> memberIds) throws SQLException;
+
+    boolean createSession(String sessionName, User owner, List<String> memberIds, String id) throws SQLException;
 
     boolean updateSessionMember(String sessionId ,List<String> memberIds) throws SQLException;
 

@@ -42,7 +42,7 @@ public class SignTest {
         User user2 = userInter.byId("test@qq.com");
         assert user2 == null;
 
-        boolean err = userInter.addUser(user);
+        boolean err = userInter.createUser(user);
         assert err;
     }
 

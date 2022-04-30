@@ -29,7 +29,7 @@ public class AuthorityManager {
 
     public static User GetUser(Cookie cookie) {
         for (Map.Entry<User, Cookie> entry : authenticatedLogin.entrySet()) {
-            if (entry.getValue().equals(cookie)) {
+            if (entry.getValue().str.equals(cookie.str)) {
                 return entry.getKey();
             }
         }

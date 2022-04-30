@@ -19,8 +19,8 @@ public class LoginTest {
         User user = userInter.byId("test@qq.com");
         assert user != null;
 
-        boolean err = CommandManager.login("test@qq.com", "123456", cookie);
-        assert err;
+        assert CommandManager.login("test@qq.com", "123456", cookie);
+        assert AuthorityManager.isLogin(user);
 
     }
 

@@ -6,7 +6,7 @@ public interface UserInter {
 
     User byId(String id)throws SQLException;
 
-    boolean addUser(User user)throws SQLException;
+    boolean createUser(User user)throws SQLException;
 
     boolean updateUser(User user)throws SQLException;
 

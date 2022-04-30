@@ -4,7 +4,6 @@ import entity.*;
 import entity.sql.ChatSessionInterImpl;
 import entity.sql.UserInterImpl;
 
-import javax.websocket.Session;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -54,15 +53,20 @@ public class CommandManager {
     }
 
     static public boolean signUp(String userId, String nickname, String passwd) throws SQLException {
+        if(userInter.byId(userId) != null)
+            return false;
         User user = new User(userId, nickname, passwd);
-        return userInter.addUser(user);
+        return userInter.createUser(user);
     }
 
-    static public boolean createGroup(String cookie, String groupName, List<String> userIds) throws SQLException {
+    static public boolean createGroup(String cookie, String groupName, List<String> userIds, String id) throws SQLException {
         User user = AuthorityManager.GetUser(new Cookie(cookie));
         if(user == null)
             return false;
-        chatSessionInter.createSession(groupName, user, userIds);
+        if(id == null)
+            chatSessionInter.createSession(groupName, user, userIds);
+        else
+            chatSessionInter.createSession(groupName, user, userIds, id);
         return true;
     }
 
