@@ -19,7 +19,14 @@ public interface ChatSessionInter {
 
     boolean updateSessionName(String sessionId ,String sessionName) throws SQLException;
 
+    boolean updateSessionOwner(String sessionId ,String ownerId) throws SQLException;
+
     boolean deleteSession(String sessionId) throws SQLException;
 
     boolean isSessionPrivate(String sessionId) throws SQLException;
+
+    List<String> getAllSessionsIds(String userId) throws SQLException;
+
+    List<ChatSession> getAllSessions(String userId) throws SQLException;
+
 }

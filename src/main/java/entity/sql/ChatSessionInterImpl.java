@@ -155,6 +155,17 @@ public class ChatSessionInterImpl implements ChatSessionInter {
     }
 
     @Override
+    public boolean updateSessionOwner(String sessionId, String ownerId) throws SQLException {
+        String sql = "UPDATE " + DatabaseStructure.TABLE_SESSION +
+                " SET " + DatabaseStructure.COLUMN_OWNER_ID + " = ?" +
+                " WHERE " + DatabaseStructure.COLUMN_SESSION_ID + " = ?";
+        PreparedStatement preparedStatement = SQLConnection.prepareStatement(sql);
+        preparedStatement.setString(1, ownerId);
+        preparedStatement.setString(2, sessionId);
+        return preparedStatement.executeUpdate() == 1;
+    }
+
+    @Override
     public boolean deleteSession(String sessionId) throws SQLException {
 //        if (deleteMembersById(sessionId) != countMembers(sessionId))
 //            return false;
@@ -176,5 +187,30 @@ public class ChatSessionInterImpl implements ChatSessionInter {
         if (resultSet.next())
             return resultSet.getString(1) == null;
         return false;
+    }
+
+    @Override
+    public List<String> getAllSessionsIds(String userId) throws SQLException {
+        List<String> sessionIds = new ArrayList<>();
+        String sql = "SELECT " + DatabaseStructure.COLUMN_SESSION_ID +
+                " FROM " + DatabaseStructure.TABLE_SESSION_MEMBER +
+                " WHERE " + DatabaseStructure.COLUMN_USER_ID + " = ?";
+        PreparedStatement preparedStatement = SQLConnection.prepareStatement(sql);
+        preparedStatement.setString(1, userId);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()){
+            sessionIds.add(resultSet.getString(1));
+        }
+        return sessionIds;
+    }
+
+    @Override
+    public List<ChatSession> getAllSessions(String userId) throws SQLException {
+        List<String> sessionIds = getAllSessionsIds(userId);
+        List<ChatSession> sessions = new ArrayList<>();
+        for (String sessionId : sessionIds){
+            sessions.add(byId(sessionId));
+        }
+        return sessions;
     }
 }
