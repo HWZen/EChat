@@ -25,7 +25,6 @@ websocket Demo---- user000 <br />
 
 <script type="text/javascript">
     let websocket;
-
     function connect2server(){
         //判断当前浏览器是否支持WebSocket
         if('WebSocket' in window){
@@ -64,9 +63,6 @@ websocket Demo---- user000 <br />
             alert('Not support websocket')
         }
     }
-
-
-
 
     //将消息显示在网页上
     function setMessageInnerHTML(innerHTML){
