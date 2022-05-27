@@ -1,0 +1,2051 @@
+﻿@CHARSET "UTF-8";
+
+body {
+    background: #fff none repeat scroll 0 0;
+    font: 12px/22px 微软雅黑, Tahoma, Arial, sans-serif;
+    margin: 0;
+    min-width: 1200px;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+dl, dt, dd, ol, ul, li {
+    list-style-type: none;
+}
+
+
+
+h1, h2, h3, h4, h5, h6{
+	font-weight: bold;
+}
+
+h3 {
+    font-size: 14px;
+	font-weight: bold;
+}
+
+h4 {
+    font-size: 12px;
+}
+
+b, strong {
+    font-weight: 700;
+}
+
+table, th, tr, td {
+    vertical-align: middle;
+}
+
+table{
+	border-collapse: collapse;
+    border-spacing: 0;
+}
+
+em {
+    font-style: normal;
+    font-weight: 500;
+}
+
+.body_bg {
+    background: #fff;
+    width: 100%;
+}
+
+.font_g3{
+	color:#333;
+}
+
+.font_g6{
+	color:#666;
+}
+
+.font_g9{
+	color:#999;
+}
+
+.font_gc{
+	color:#ccc;
+}
+
+.base{
+	width:1000px;
+	margin:0 auto;
+    background-color: #fff;
+}
+
+.top10{
+	margin-top:10px;
+}
+
+
+
+
+.clear{
+	clear:both;
+}
+
+
+
+
+
+
+
+/* 导航栏【START】 */
+.navigation{
+    height:40px;
+    line-height:40px;
+}
+
+.navigation span a{
+    color: #08c;
+}
+
+.navigation span a.cur, .navigation span a.cur:hover{
+    color: #666;
+    cursor:default;
+}
+
+.navigation span a:hover{
+    color:#d37;
+}
+/* 导航栏【END】 */
+
+
+/* 内容第一部分 开始*/
+
+
+.border_gray{
+    border:1px #ccc solid;
+}
+
+
+.product-main{
+    width: 999px;
+    height: 384px;
+    margin: 0 auto;
+    color: #666;
+    background-color: #fff;
+}
+
+.product-name h1 {
+    font-size: 18px;
+    line-height: 26px;
+    font-weight: normal;
+    font-family: "Microsoft YaHei","simsun";
+    color: #333;
+    display: inline;
+    word-wrap: break-word;
+}
+
+
+.comment_img_div{
+    width: 360px;
+    height: 305px;
+    float: left;
+    margin: 20px;
+    margin-right: 15px;
+    display: inline;
+   z-index: 1;
+
+}
+
+.comment_img_div_big{
+    width: 460px;
+    height: 320px;
+    float: left;
+    margin: 20px;
+    margin-right: 15px;
+    display: inline;
+    z-index: 1;
+}
+
+.overview-description{
+    float: left;
+    margin-top: 10px;
+    width: 458px;
+    font-size: 14px;
+}
+
+.product-name{
+    border-bottom: 1px solid #EEE;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.product-name h1 {
+    font-size: 18px;
+    line-height: 26px;
+    font-weight: normal;
+    font-family: "Microsoft YaHei","simsun";
+    color: #333;
+    display: inline;
+    word-wrap: break-word;
+}
+
+.product-price{
+    width:458px;
+    height:240px;
+}
+
+.product-price-item{
+    margin-top: 15px;
+}
+
+.product-price-title {
+    float: left;
+    width: 75px;
+}
+
+.product-qunawan-price{
+    margin-top:  5px;
+}
+
+.product-price-title {
+    float: left;
+    width: 75px;
+}
+
+
+
+div .product-price-content.product-price-content-val{
+    width:380px;
+    height:27px;
+}
+
+.product-price-rmb{
+    color:#f60;
+}
+
+.product-price-value{
+    font-size:32px;
+    font-family:"Arial";
+    font-weight:bold;
+    color:#f60;
+}
+
+ .product-main .color-style1{
+     color:#999
+ }
+
+.product-main .fs-12{
+    font-size:12px;
+}
+
+.product-price-span {
+    color: #FF6600;
+}
+
+.product-price-rmb {
+    color: #f60;
+}
+
+.product-price-rmb-small {
+    border-bottom: 1px dashed #FF6600;
+    margin-right: 2px;
+}
+
+
+.tagsbackRMB {
+    color: #FF6600 !important;
+    background: none;
+    cursor: default;
+}
+
+.tags {
+    font-family: Arial,sans-serif;
+    display: inline-block;
+    height: 18px;
+    line-height: 18px;
+    font-weight: normal;
+    padding: 0 3px;
+    padding: 1px 3px 0\9;
+    background: #eee;
+    margin: 0 3px;
+    border-radius: 2px;
+    color: #888 !important;
+}
+
+
+
+
+.rmb-symbol, .product-price-rmb {/**/
+    color: #f60;
+}
+
+.product-price-content {
+    float: left;
+    margin-left: 3px;
+    line-height: 20px;
+    width: 380px;
+
+}
+
+.product-price-rmb-small .product-price-value {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.product-over-protect{
+    float: right;
+    background: #F7F7F7;
+    border-left: 1px solid #DDD;
+    width: 130px;
+    height: 384px;
+}
+
+
+.product-basic-info,.product-protect-info,.overview-protect-bottom{
+    padding: 5px;
+}
+
+.product-no .clearfix {
+    float: left;
+    width: 60px;
+}
+.product-main .pull-left {
+    float: left;
+    width: 60px;
+}
+
+.product-main .pull-left span {
+    float: right;
+}
+
+.product-main .pull-right {
+    width: 40px;
+    float: left;
+}
+
+.product-no .val {
+    color: #F60;
+}
+
+
+.overview-protect-middle ul li a {
+    color: #09C;
+    margin-left: 5px;
+}
+
+
+.overview-protect-top, .overview-protect-middle {
+    border-bottom: 1px dashed #DDD;
+}
+
+.overview-protect-middle ul li {
+    display: block;
+    clear: both;
+    margin: 5px 0;
+    line-height: 18px;
+}
+
+
+.overview-protect-middle i {
+    display: block;
+    width: 16px;
+    height: 16px;
+    float: left;
+    background-repeat: no-repeat;
+}
+
+
+.protect-type{
+    position: absolute;
+    width: 66px;
+    height: 66px;
+    z-index: 15;
+}
+
+
+.protect-icon {
+
+    background: url("../img/product-detail-all.png");
+    margin:0px 5px 0px 5px;
+
+
+}
+
+.tuangou-icon{
+    width:69px;
+    height:69px;
+    background-position:  0px 70px;
+    position: absolute;
+    margin-left: -6px;
+    margin-top: -7px;
+    z-index: 15;
+}
+
+
+.price-icon{
+    background-position: -115px 0px;
+
+}
+
+.refund-icon{
+    background-position: -115px -24px;
+}
+
+.help-icon{
+    background-position: -115px -50px;
+}
+
+.allday-icon{
+    background-position: -114px -79px;
+}
+
+
+.price-explain-icon{
+    background-position: -135px 0px;
+    width:14px;
+    height:14px;
+    display: inline-block;
+}
+
+#product-price-explain {
+    cursor: default;
+    border-bottom: 1px dashed #999;
+    color: #999;
+    padding-bottom: 2px;
+}
+
+.overview-protect-middle ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+
+
+.overview-protect-qrcode{
+    width:100px;
+    height:105px;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 15px;
+}
+
+
+
+
+.overview-protect-bottom {
+    padding: 15px;
+}
+
+.tagsback, .tagsgift {
+    padding: 0px 4px 0px 0px;
+    font-size: 12px;
+    height: 14px;
+    line-height: 14px;
+    text-decoration: none;   border:1px #f80 solid;
+}
+.tagscc, .tagsback, .tagsgift {
+    display: inline-block;
+    margin: 0;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: normal;
+    text-indent: 0;
+    cursor: default;
+}
+
+
+.tagsback-orange em {
+    background-color: #f80;
+    color: #fff;
+    padding: 0px 2px 0px 2px;
+
+}
+
+.tagsback-orange i {
+    color: #f80;
+    vertical-align: top;
+    text-decoration: none;
+}
+
+.tagsback {
+    border-radius: 2px;
+}
+
+/* 内容第一部分 结束*/
+
+
+/* 开始预定 开始 */
+.product-preorder{
+    width: 994px;
+    font-size: 12px;
+    position: relative;
+    background: #FFFAEE;
+    border : 3px solid #F90;
+    color:#999;
+    margin-top: 20px;
+}
+
+
+.preorder-config{
+    padding: 15px;
+    padding-left: 0;
+    float: left;
+    margin-top: 5px;
+}
+.preorder-input-group {
+    float: left;
+    display: inline;
+    margin-left: 30px;
+    line-height: 30px;
+}
+
+.chrome-hack-1 {
+    width: 200px;
+}
+
+.chrome-hack-2 {
+    float: left;
+    line-height: 30px;
+    display: inline-block;
+}
+
+.trip-time {
+    float: right;
+    border: 1px solid #ABC;
+    background: #FFF;
+    -moz-box-shadow: inset 1px 1px 2px #ABC;
+    -webkit-box-shadow: inset 1px 1px 2px #ABC;
+    box-shadow: inset 1px 1px 2px #ABC;
+}
+
+
+.preorder-start-time {
+    width: 120px;
+    height: 27px;
+    background: url("../img/calendar-icon.png") no-repeat 110px 5px;
+    cursor: pointer;
+    padding-left: 10px;
+    border:1px #ccc solid;
+}
+
+
+.preorder-confirm {
+    width: 430px;
+    padding: 15px;
+    padding-left: 0;
+    float: right;
+    display: inline-block;
+}
+
+
+#preorder-confirm-button {
+    cursor:pointer;
+    margin-left: 20px;
+    display: block;
+    width: 125px;
+    height: 38px;
+    float: right;
+    color: #FFF;
+    line-height: 38px;
+    font-size: 20px;
+    font-family: "Microsoft YaHei","simsun";
+    text-align: center;
+    background: url("../img/confirm-order-bg.png") repeat-x;
+    border: 1px solid #F60;
+    border-radius: 2px;
+}
+
+.preorder-total-price {
+    float: right;
+    width: 280px;
+    margin: 10px 0 0 0;
+    display: inline;
+    position: relative;
+}
+
+
+.preorder-total-price .tip-icon {
+    float: right;
+    margin: 5px 0 0 10px;
+}
+.tip-icon-help {
+    background-position: -60px -34px;
+}
+
+
+.total-price-value {
+    font-size: 32px;
+    font-family: "Arial";
+    font-weight: 700;
+    color: #F60;
+    float: right;
+}
+
+
+
+.total-price-symbol {
+    display: none;
+    float: right;
+    margin: 2px 5px 0 0;
+    color: #f60;
+}
+
+
+.rmb-symbol {
+    font-family: "arial";
+}
+
+
+.total-price-title {
+    display: block;
+    float: right;
+    margin: 2px 1px 0 0;
+}
+
+
+.fangcha {
+    position: absolute;
+    right: 0;
+    top: 23px;
+    font-size: 12px;
+    color: #999;
+}
+
+
+.selectbox-drop{
+    width:62px;
+    height:32px;
+}
+
+.young{
+    color:#999;
+    width:62px;
+    height:30px;
+    margin:-2px;
+}
+/* 开始预定 结束 */
+
+
+/*  产品详情、行程介绍、交通地图、综合点评、点评分页检索 开始   */
+
+.product-pm-recommand {
+    padding: 20px 25px;
+    background: #FFFAEE;
+}
+
+
+.recommand-title-main {
+    float: left;
+    font-weight: 400;
+    font-size: 22px;
+    font-family: "Microsoft YaHei","simsun";
+    line-height: 28px;
+    color: #656565;
+    margin-left: 25px;
+}
+
+
+.product-detail-title, .recommand-title-main {
+    font-size: 22px;
+    color: #656565;
+}
+
+
+
+.recommand-left-quotation {
+    margin-top: 3px;
+    float: left;
+    width: 24px;
+    height: 21px;
+    background: url("../img/product-detail-all.png") no-repeat -85px -0px;
+}
+
+.recommand-right-quotation {
+    margin-top: 3px;
+    float: right;
+    width: 24px;
+    height: 21px;
+    background: url("../img/product-detail-all.png") no-repeat -82px -27px;
+}
+
+
+.pm-recomman-body li {
+    margin: 10px 0;
+    padding-left: 20px;
+    background-image: url("../img/pm-recommand-start-icon.png")  ;
+    background-repeat: no-repeat;
+    background-position: 0 2px;
+    font-size: 14px;
+    line-height: 16px;
+}
+
+.product-detail-header li .active {
+    text-decoration: none;
+    cursor: pointer;
+    color: #FFF;
+    background: #EA1786;
+
+}
+
+
+.instance-title {
+    height: 35px;
+    width: 100%;
+    border-bottom: 3px solid #E3E3E3;
+
+}
+
+
+.title-icon-container {
+    float: left;
+    height: 35px;
+    border-bottom: 3px solid #F90;
+}
+
+.detail-instance-body {
+    padding: 20px 0;
+
+}
+
+.feature{
+   margin:20px 0px 20px 40px;
+}
+
+
+
+
+.padding0{
+    padding-top: 0px;
+}
+.detail-instance-body span p{
+   font-size: 12px;
+    color:#666;
+}
+
+
+.product-detail-instance {
+    margin: 50px 20px 0;
+
+}
+
+.instance-title h3 {
+    font-weight: 400;
+    font-size: 22px;
+    font-family: "Microsoft YaHei","simsun";
+    line-height: 22px;
+    color: #656565;
+    margin-left: 35px;
+}
+
+.flags{
+    height:1px;
+    margin:0px;padding:0px;
+}
+
+
+.product-detail-icon {
+    background: url("../img/product-detail-all.png") no-repeat -76px -116px;
+    display: inline-block;
+    width: 24px;
+    height: 23px;
+}
+
+
+.product-map-icon {
+    background: url("../img/product-detail-all.png") no-repeat -149px -115px;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+}
+
+.product-review-icon {
+    background: url("../img/product-detail-all.png") no-repeat -222px -116px;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+}
+
+.product-line-icon {
+    background: url("../img/product-detail-all.png")  no-repeat -114px -113px;
+    display: inline-block;
+    width: 24px;
+    height: 30px;
+}
+
+
+.product-main i {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+address, caption, cite, dfn, em, i, var {
+    font-style: normal;
+    font-weight: 500;
+}
+
+.detail-instance-body p span {
+
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    font-size: 12px;
+}
+
+/*行程介绍 开始*/
+.instance_list2_box {
+    border-radius: 5px;
+}
+
+
+.instance_list2 {
+    display: none;
+}
+
+
+.travel-fixed {
+    float: left;
+    width: 100px;
+    margin-top:45px;
+
+}
+
+.travel-fixed .active {
+    background: #F90;
+}
+.travel-fixed li {
+    display: block;
+    width: 80px;
+    height: 35px;
+    font-size: 14px;
+    text-align: center;
+    line-height: 35px;
+    vertical-align: middle;
+    background: #DBDBDB;
+    color: #FFF;
+    border-radius: 3px;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+.active, .common_diqu_list:hover {
+    background: #fff;
+}
+
+.travel-days {
+    float: right;
+    font-size: 12px;
+    width: 840px;
+    background-image: url("../img/travel-border.png");
+    background-repeat: repeat-y;
+    background-position: 89px 0px;
+   color:#666;
+}
+
+
+
+.travel-instance {
+    float: right;
+    width: 840px;
+
+}
+
+.travel-instance .tips {
+    padding: 5px;
+    border: 1px solid #FA0;
+    background: #FFFDE6;
+    color: #333;
+    padding: 10px;
+    margin-bottom: 15px;
+    line-height: 10px;
+}
+
+p.tips.fs-12 {
+    padding: 5px;
+    border: 1px solid #FA0;
+    background: #FFFDE6;
+    color: #333;
+    padding: 10px;
+    margin-bottom: 15px;
+    line-height: 10px;
+}
+
+.travel-instance .fs-12 {
+    font-size: 12px;
+}
+
+.traffic-type {
+    height: 28px;
+    border-bottom: 1px solid #DDD;
+
+}
+
+.traffic-type ul{
+    margin: 0px;
+    padding: 0px;
+}
+.traffic-type li {
+
+    display: block;
+    width: 90px;
+    font-size: 14px;
+    line-height: 17px;
+    padding: 5px 0;
+    position: relative;
+    top: 1px;
+    color: #333;
+    float: left;
+    text-align: center;
+    cursor: pointer;
+
+
+}
+
+
+
+.traffic-type .active .arrow {
+    display: inline-block;
+    margin-left: 4px;
+    border-width: 4px;
+    border-style: solid;
+    border-color: #F90 #fff #fff #fff;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    font-size: 0;
+    position: absolute;
+    right: 41px;
+    top: 29px;
+}
+
+
+.traffic-type .active {
+    margin-top: -1px;
+    border-bottom: 2px solid #F90;
+    font-weight: 900;
+}
+
+
+.traffic-container {
+    margin-top: 10px;
+}
+
+
+.traffic-instance {
+    display: none;
+    background: #F5F5F5;
+}
+
+
+.traffic-item {
+    border-bottom: 1px solid #E3E3E3;
+    overflow: hidden;
+}
+
+
+
+.traffic-item .outer-container {
+    float: right;
+    width: 620px;
+    font-size: 12px;
+    line-height: 24px;
+    background: #FFF;
+    overflow: hidden;
+    margin-top: -1px;
+}
+
+.traffic-item .container .left {
+    width: 620px;
+    float: left;
+    padding-left: 20px;
+    color:#666;
+
+}
+
+.left ul,.left li{
+    margin: 0px;
+    padding:0px;
+}
+
+.traffic-item .container .icon {
+    float: left;
+    margin: 12px 15px 0 0;
+}
+
+.icon{
+   width:30px;
+    height:30px;
+    display: inline-block;
+
+}
+.traffic-bus-icon {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    background: url("../img/product-detail-all.png") no-repeat -44px 0px;
+}
+
+
+
+.traffic-item .container ul p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.travel-title .day {
+    display: block;
+    width: 35px;
+    height: 44px;
+    background: url("../img/product-detail-all.png") no-repeat -145px -64px;
+    line-height: 38px;
+    font-size: 12px;
+    text-align: center;
+    color: #FFF;
+    float: left;
+    margin: 0;
+
+}
+
+
+.travel-title .destination {
+    margin: 15px 0 0 15px;
+    font-size: 16px;
+    font-weight: 900;
+    float: left;
+    color: #333;
+    line-height: 16px;
+}
+
+.travel-time-line {
+    margin: 15px 0px  0px 0px;
+
+}
+
+
+.margin_bottom20{
+    margin-bottom: 20px;
+}
+
+.travel-time-line .time {
+    float: left;
+    width: 90px;
+}
+
+.travel-time-line .time span {
+    width: 85px;
+    height: 22px;
+    display: block;
+    color: #333;
+    text-align: center;
+}
+
+.travel-time-line i {
+    position: relative;
+    left: 74px;
+    top: -24px;
+}
+.product-main i {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.travel-flag-icon {
+    display: block;
+    width: 28px;
+    height: 28px;
+    background: url("../img/product-detail-all.png") no-repeat -254px -73px;
+}
+
+.travel-notice-icon {
+    display: block;
+    width: 28px;
+    height: 28px;
+    background: url("../img/product-detail-all.png") no-repeat -338px -73px;
+}
+.travel-time-line .detail {
+    width: 720px;
+    float: right;
+    line-height: 22px;
+}
+
+.travel-title {
+    padding-left: 72px;
+}
+
+.traffic-item .title {
+    width: 90px;
+    float: left;
+    font-size: 14px;
+    text-align: center;
+    padding-top: 20px;
+
+}
+
+.detail-notice{
+    width:720px;
+    min-height:56px;
+}
+.travel-time-line .detail-notice {
+    width: 700px;
+    float: right;
+    line-height: 26px;
+    background: #F5F5F5;
+}
+
+.travel-time-line .detail-notice  p {
+    display: block;
+    width:690px;
+    height:26px;
+
+}
+
+.travel-time-line .detail-notice {
+    width: 690px;
+    float: right;
+    padding: 15px;
+    line-height: 26px;
+    background: #F5F5F5;
+}
+
+
+.detail-notice b,.detail-notice  strong {
+    font-weight: 700;
+}
+
+
+.end-of-travel {
+    padding-left: 81px;
+}
+
+.travel-end-icon {
+    display: block;
+    width: 28px;
+    height: 28px;
+    background: url("../img/product-detail-all.png") no-repeat -362px -64px;
+}
+/*行程介绍 结束*/
+
+
+#allmap {
+    width: 960px ;
+    height: 500px;
+    overflow: hidden;
+    margin:0;
+    font-family:"微软雅黑";
+    margin-top:30px;
+}
+/*  产品详情、行程介绍、交通地图、综合点评、点评分页检索  结束   */
+
+
+
+
+
+
+
+
+
+/* 综合点评 开始*/
+
+.comwrap {
+
+    overflow: hidden;
+
+}
+
+
+.new-cominfo{
+    position: relative;
+    width:918px;
+    height:108px;
+
+}
+
+
+
+
+.comstati {
+    margin-top: 30px;
+}
+
+
+.com-null {
+    float: left;
+    width: 570px;
+    height: 109px;
+
+}
+
+.com-null ul{
+    float:left;
+    margin: -10px 0px 0px 25px;
+
+}
+
+
+.com-null ul li{
+    margin:10px 0px 10px 0px;
+}
+
+.comcount{
+
+    display: inline-block;
+    font-size: 12px;
+    color:#999;
+    width:65px;
+    overflow: hidden;
+
+}
+
+.comlevel{
+    display: block;
+    float:right;
+    margin-left:10px;
+    width:150px;
+    height:8px;
+    line-height: 20px;
+    margin-top: 9px;
+    border-radius: 5px;
+    background-color: #efefef;
+}
+
+.comlevel i {
+    display: block;
+    height: 8px;
+    background: #f90;
+    border-radius: 5px;
+}
+
+.com-null img {
+    float: left;
+}
+
+.com-null p {
+    float: left;
+    padding: 25px 0 0 10px;
+    font: 18px/34px "Microsoft Yahei";
+    color: #999;
+}
+
+
+
+.com-btns .nlogin {
+    display: block;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    background: #f80;
+    color: #fff;
+}
+
+
+
+.com-btns {
+    width: 220px;
+    float: right;
+    margin-top: 33px;
+    font-size: 14px;
+
+}
+
+
+.com-count {
+    display: block;
+    float:left;
+    text-align: center;
+
+}
+
+
+.percentum, .percentum span {
+    font-family: "Arial";
+}
+
+.com-count .f60 {
+  color:#f80;
+}
+
+.com-count em {
+    display: block;
+    color: #999;
+    font-size: 12px;
+}
+
+
+
+
+.percentum {
+    font-size: 44px;
+    line-height: 44px;
+    font-weight: normal;
+}
+
+
+.com-count {
+    width: 150px;
+    display: block;
+    padding-top: 5px;
+    float: left;
+    text-align: center;
+}
+
+
+
+
+.com-null ul li{
+    display: block;
+    margin: 0px;
+    padding: 0px;
+}
+
+
+.comheatd {
+    position: relative;
+}
+
+
+
+.comstati ul em {
+    color: #666;
+}
+
+
+.comheatd-ul {
+    height: 38px;
+    border-left: 1px solid #e4e4e4;
+    border-bottom: 1px solid #e4e4e4;
+    margin-top: 20px;
+    color: #333;
+    font-size: 14px;
+    background: #f6f6f6;
+    padding-left: 0px;
+}
+
+
+.comheatd-ul li {
+    height: 38px;
+    float: left;
+    line-height: 38px;
+    cursor: pointer;
+}
+
+.comheatd-ul li.active {
+    font-weight: bold;
+}
+
+.comheatd-ul li.active a {
+    border-top: 2px solid #F90;
+    height: 37px;
+    background: #fff;
+}
+.comheatd-ul li.active a {
+    border-top: 2px solid #F90;
+    height: 37px;
+    background: #fff;
+}
+.comheatd-ul a {
+    display: block;
+    height: 38px;
+    padding: 0 15px;
+    border-right: 1px solid #e4e4e4;
+    color: #333;
+}
+
+
+
+
+#comments_detail{
+    display: block;
+    width:auto;
+    height: auto;
+    font-size: 12px;
+}
+
+
+.feature_spoc{
+    width:auto;
+    height:auto;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    overflow: hidden;
+    font-size: 12px;
+    border-bottom:1px #ccc solid;
+}
+
+
+
+
+.comments_level_level{
+    width:auto;
+    min-height: 20px;
+}
+
+
+
+
+.blue_color{
+    color:#08c;
+}
+
+
+
+
+.float_right{
+    float:right;
+    margin-right: 15px;
+    line-height: 30px;
+    vertical-align:middle;
+}
+
+
+
+.gray_hr{
+    color:#bbb;
+    width:840px;
+}
+
+
+.star{
+    display: inline-block;
+    float:left;
+    background:url(../img/star.png) no-repeat;
+    width:70px;
+    height:20px;
+    margin-top: 2px;
+    margin-right: 15px;
+
+}
+
+.star5{
+    background-position:0px 0px;
+}
+
+
+.star4{
+    background-position:-15px 0px;
+}
+
+.star3{
+    background-position:-30px 0px;
+}
+
+.star2{
+    background-position:-45px 0px;
+}
+
+.star1{
+    background-position:-60px 0px;
+}
+
+.star0{
+    background-position:-75px 0px;
+}
+
+
+
+.span_comment{
+    display: inline-block;
+    overflow: hidden;
+    float:left;
+    min-height:20px;
+    line-height:20px;
+    margin-right: 30px;
+    text-align: center;
+}
+
+
+.comment{
+    float:left;
+    width:780px;
+    color:#666;
+}
+
+.com-proTit{
+    display:inline-block;
+     max-width:400px;
+    overflow: hidden;
+    white-space: nowrap;
+    -o-text-overflow: ellipsis; /*--4 opera--*/
+    text-overflow: ellipsis;
+    margin-bottom: -5px;
+
+}
+
+
+
+
+.iconcom{
+    display: inline-block;
+    background:url(../img/moblie.png) no-repeat;
+    width:9px;
+    height:14px;
+}
+
+
+
+
+.comment_status{
+    float:right;
+    width:auto;
+    height:auto;
+    margin-top: 6px;
+
+}
+
+
+.comment_status ul{
+    margin: 0px;
+    padding: 0px;
+}
+
+
+.comment_status ul li{
+    float:left;
+    width:auto;
+    text-align: left;
+    line-height: 18px;
+    color:#f06419;
+    padding: 0px;
+    margin: 0px;
+    font-size: 12px;
+
+}
+
+
+
+.text_color_blue{
+    color:#08c;
+}
+
+
+.icon_retract{
+    width:12px;
+    height:12px;
+    display: inline-block;
+    background: url(../img/iconcom.png) no-repeat;
+    background-position:-194px -154px;
+
+}
+
+
+.span_text{
+    display: inline-block;
+    border:1px #f06419 solid;
+    padding: 1px  2px 1px  2px;
+    margin-right:  10px;
+    float:left;
+}
+
+
+.gray{
+    color:#ccc;
+    border:1px #ccc solid;
+}
+
+.Pages{
+    float:right;
+    width :auto;
+    min-width: 150px;
+    height: 25px;
+	margin-bottom: 10px;
+}
+
+
+.Pages .PrevPage{
+    display: inline-block;
+    float:left;
+    width:65px;
+    height: 25px;
+    line-height:25px;
+    border:1px #ccc solid;
+    text-align:center;
+    padding-left: 5px;
+    background: url("../img/page.jpg") no-repeat -4px 9px;
+}
+.Pages .NextPage{
+    display: inline-block;
+    float:left;
+    width:65px;
+    height: 25px;
+    line-height:25px;
+    border:1px #ccc solid;
+    text-align:center;
+    padding-right: 5px;
+    background: url("../img/page.jpg") no-repeat -118px 9px;
+
+}
+
+
+
+.Pages .pagesel{
+    display:inline-block;
+    float:left;
+    width:25px;
+    height:25px;
+    line-height: 25px;
+    text-align: center;
+    background-color: #fff;
+    border:1px #ccc solid;
+    color:#666;
+    margin:0px 5px 0px 5px;
+}
+.Pages .pagesel:hover{
+
+    color:#fff;
+    background-color: #d37;
+}
+
+
+.Pages .PrevPage:hover,.Pages .NextPage:hover{
+    float:left;
+    border:1px #d37 solid;
+
+}
+
+/* 综合点评 结束*/
+
+
+
+
+
+
+
+
+
+
+
+.calendar{border: 2px solid #d37;width: 450px;background-color: #fff;font-size:12px;font-family:"microsoft yahei";}
+.calendar .calendar_num{position: relative;height:28px;background: #d37;margin:0px 0px 1px 0px;}
+.calendar .calendar_num li.bold{font-weight: bold;}
+.calendar .calendar_num li{float: right;width: 55px;height: 28px;line-height: 26px;text-align: center;color: #fff;}
+.calendar .calendar_num li.picker_today{position:absolute;top:0;left:0;cursor:pointer;width:65px;}
+.calendar ul, menu, dir{display: block;list-style-type: disc;-webkit-margin-before: 1em;-webkit-margin-after: 1em;-webkit-margin-start: 0px;-webkit-margin-end: 0px;-webkit-padding-start: 40px;}
+.calendar ul li, ol li{list-style: none;}
+.calendar .calendar_left{position: relative;float: left;width: 65px;height:270px;overflow:hidden;text-align: center;color: #1a477e;font-weight: bold;}
+.calendar .pkg_double_month .date_text{padding:0;height:40px;width:40px;position:absolute;top:50%;left:50%;margin-left:-20px;margin-top:-20px;}
+.calendar .calendar_left .border{border-bottom: 1px solid #eaeaea;}
+.calendar p{display: block;-webkit-margin-before: 1em;-webkit-margin-after: 1em;-webkit-margin-start: 0px;-webkit-margin-end: 0px;}
+.calendar .pkg_circle_top, .pkg_circle_bottom{background: url("../img/bg_calendar.png") no-repeat;}
+.calendar .pkg_circle_top{top: 20px;background-position: 0 -60px;}
+.calendar .pkg_circle_top, .pkg_circle_bottom{display: block;position: absolute;width: 36px;padding-top: 19px;height: 0;overflow: hidden;left: 50%;margin-left: -18px;text-decoration: none;}
+.calendar .pkg_circle_top:hover{background-position: -40px -60px;}
+.calendar .pkg_circle_bottom:hover{background-position: -40px -93px;}
+.calendar .pkg_circle_bottom_disable, .pkg_circle_bottom_disable:hover{background-position: -80px -93px;cursor: default;}
+.calendar .pkg_circle_bottom{bottom: 20px;background-position: 0 -93px;}
+.calendar .pkg_circle_bottom_disable, .pkg_circle_bottom_disable:hover{background-position: -80px -93px;cursor: default;}
+.calendar .calendar_right{float: left;width: 385px;height:270px;}
+.calendar table{display: table;border-collapse: collapse;border-spacing: 2px;border-color: gray;}
+.calendar tbody{display: table-row-group;vertical-align: middle;border-color: inherit;}
+.calendar tr{display: table-row;vertical-align: inherit;border-color: inherit;}
+.calendar .calendar_right td{height: 44px;border: 1px solid #ddd;border-width: 0 0 1px 1px;vertical-align:top;color: #aaa;max-width: 45px;}
+.calendar .calendar_right .on{cursor: pointer;}
+.calendar a{color: #0065bb;text-decoration: none;outline: none;}
+.calendar .calendar_right a{display: block;width: 45px;height: 40px;color: #aaa;padding:4px 4px 0;}
+.calendar .calendar_right .on .date{color: #333;font-weight: 900}
+.calendar .calendar_right .on a:hover{position: absolute;border: 1px solid #ddd;margin: -1px 0 0 -1px;background-color: #fff1f9;}
+.calendar .calendar_right .date{display: block;}
+.calendar .calendar_right .today{margin: -1px 0 0 -1px;background-color: #fffbee;}
+.calendar .calendar_right .on .team{color: #339900;}
+.calendar .calendar_right .team{display: block;text-align: right;height: 16px;line-height: 16px;}
+.calendar .calendar_right .on .calendar_price01{ display:inline-block;  color: #ff6000;   float:right;   max-width: 45px;   overflow: hidden;  white-space: nowrap;  -o-text-overflow: ellipsis; /*--4 opera--*/  text-overflow: ellipsis; }
+.calendar dfn{font-style: normal;font-size: 12px;font-family: Arial !important;}
+.calendar .calendar_loding{float: right;width: 591px;text-align: center;padding: 147px 0;}
+.calendar .calendar_loding img{vertical-align: middle;margin-right: 10px;}
+.calendar img, fieldset{margin: 0;padding: 0;border: 0;}
+
+
+
+
+.product-detail{
+    width:1000px;
+    margin:0 auto;
+    margin-top: 20px;
+    font-size: 16px;
+    border:1px #ccc solid;
+}
+.empty-placeholder{height:0px; width:1000px; margin: 0 auto;  }
+#brand_affect,#hall_show,#alpha_price,#checkCar,#rideCar,#quality_promise,#stockFinance,#ourInfo,#sellFlow{background-color:#fff;margin-bottom:20px;border:1px solid #d9d9d9}
+#subNav{width:1000px;height:42px;background-color:#fff;   border-bottom: 3px  #EA1786 solid;  z-index:9999;}
+#subNav li{float:left;position:relative;border-right: 1px #ccc solid;}
+#subNav .wrap{width:1000px;}
+
+#subNav a{display:block;width:85px;height:42px;text-align:center;color:#444;line-height: 42px;}
+#subNav a:hover{text-decoration:none}
+
+.adv_active{background-color:#EA1786;color:#fff;}
+#subNav   a:hover,#subNav .adv_active a{background-color:#EA1786;color:#fff;  }
+
+#subNav .adv_source ins{background-position:-49px -334px}
+#subNav .adv_price ins{background-position:-101px -334px}
+#subNav .adv_transfer ins{background-position:-155px -334px}
+#subNav .adv_payment ins{background-position:-202px -334px}
+#subNav .adv_promise ins{background-position:-251px -334px}
+#subNav .adv_ride ins{background-position:-301px -334px}
+#subNav .adv_finance ins{background-position:-349px -334px}
+#subNav .adv_source:hover ins,#subNav .adv_active .adv_source ins{background-position:-49px -191px}
+#subNav .adv_price:hover ins,#subNav .adv_active .adv_price ins{background-position:-101px -191px}
+#subNav .adv_transfer:hover ins,#subNav .adv_active .adv_transfer ins{background-position:-155px -191px}
+#subNav .adv_payment:hover ins,#subNav .adv_active .adv_payment ins{background-position:-202px -191px}
+#subNav .adv_promise:hover ins,#subNav .adv_active .adv_promise ins{background-position:-251px -191px}
+#subNav .adv_ride:hover ins,#subNav .adv_active .adv_ride ins{background-position:-301px -191px}
+#subNav .adv_finance:hover ins,#subNav .adv_active .adv_finance ins{background-position:-349px -191px}
+
+#subNav ul{margin:0px; padding:0px;}
+.fixedSubNav{position:fixed;top:0;z-index:100000;margin:0 auto; }
+
+.show_title{color:#ccc;font-family:"\5FAE\8F6F\96C5\9ED1",Tahoma,Verdana}
+.show_title h1{font-size:36px;padding-top:40px;margin-bottom:10px}
+.show_title h1 span{float:left;width:56px;height:47px;background:url(../images/souche_png.png) no-repeat -53px 3px;_background:none;_width:0}
+.show_title p{font-size:16px}
+#quality_promise{padding-bottom:45px}
+#brand_affect{padding-bottom:50px}
+#quality_promise .show_title,#brand_affect .show_title{height:160px;width:1000px;background-color:#93715d}
+#quality_promise h1 span{background-position:0 3px;margin-left:254px;_margin-left:290px}
+#brand_affect h1 span{background-position:0 1px;margin-left:384px}
+#quality_promise .show_title p,#brand_affect .show_title p{text-align:center}
+.brand_show{padding-top:45px;padding-left:20px;padding-bottom:32px}
+.brand_show li{float:left}
+.media{width:950px;margin:0 auto;border-top:1px dotted #b2b2b2;padding-top:43px}
+.media_visit{float:left;padding-right:40px}
+.media_title{color:#333;font-size:18px;font-family:"\5FAE\8F6F\96C5\9ED1",Tahoma,Verdana;margin-bottom:15px}
+.media_video{width:257px;height:183px;background-color:#ff4301;margin-bottom:19px}
+.media_news{color:#333;line-height:2.2em;width:257px;height:77px;overflow:hidden}
+.media_news ins{color:#666}
+.media_photos{float:left;padding-right:40px}
+.media_ditie{float:left}
+.promise_content{float:left;display:inline;width:425px;margin-left:50px;margin-top:40px}
+.promise_content ins{width:76px;height:76px;background:url(../images/souche_sprite2.jpg?124) no-repeat 1px -377px;display:block;margin:0 auto;margin-bottom:22px}
+.promise_content dl{border:1px dotted #b2b2b2;height:133px;color:#333}
+.promise_content dt{width:130px;margin:0 auto;text-align:center;font-size:18px;margin-bottom:24px;margin-top:-13px;_margin-top:5px;_margin-bottom:14px;background-color:#fff;font-family:"\5FAE\8F6F\96C5\9ED1",Tahoma,Verdana}
+.promise_content dd{font-size:14px;width:380px;margin:0 auto;line-height:1.6em;*margin-top:-44px}
+.promise_content_180 ins{background-position:-84px -377px}
+#hall_show{padding-bottom:5px}
+#hall_show .show_title{height:140px;width:998px;}
+#hall_show .show_title h1{margin-left:48px;padding-top:140px}
+
+#hall_show p ins{color:#ff4301;font-size:24px}
+.hallImg_show{padding-left:5px}
+.hallImg_show li{float:left;margin:5px;position:relative}
+.hallImg_show ins{position:absolute;left:0;bottom:0;width:100%;zoom:1;line-height:1.5em;padding:15px 0;background-color:rgba(0,0,0,0.5);font-family:"\5FAE\8F6F\96C5\9ED1",Tahoma,Verdana;color:#fff;text-align:center;font-size:16px}
+#alpha_price{padding-bottom:30px}
+#alpha_price .show_title{height:270px;background:url(../images/souche_bg.png) 50px -243px no-repeat #4398ca}
+#alpha_price .show_title h1{margin-left:639px;padding-top:60px}
+#alpha_price .show_title p{margin-left:639px;line-height:1.8em}
+#alpha_price .price_decorate{text-align:center;color:#333;font-size:16px;font-family:"\5FAE\8F6F\96C5\9ED1",Tahoma,Verdana;line-height:74px}
+#alpha_price img{margin:0 auto;display:block}
+#checkCar .show_title{height:222px;background-color:#a98c7b}
+#rideCar .show_title{height:190px;background-color:#72954f}
+#checkCar .show_title h1,#rideCar .show_title h1{margin-left:50px;padding-top:40px}
+#checkCar .show_title p,#rideCar .show_title p{margin-left:50px;line-height:1.8em}
+.rideCar_show{padding-left:35px}
+.rideCar_show img{margin-bottom:10px}
+.rideCar_show li{float:left;display:inline;width:207px;margin:40px 0 0 80px;padding-bottom:35px;color:#333;font-size:16px;text-align:center;font-family:"\5FAE\8F6F\96C5\9ED1",Tahoma,Verdana}
+.checkCar_show{margin-top:10px}
+.checkCar_show img{float:left;margin-left:10px}
+.check_decorate{color:#333;font-size:18px;font-family:"\5FAE\8F6F\96C5\9ED1",Tahoma,Verdana;margin:30px 0}
+.check_decorate ins{color:#ff4301;font-size:24px;padding-right:10px;padding-left:10px}
+.check_img{display:block;margin:0 auto;margin-bottom:45px}
+#service_show{height:340px;background:url(../images/service_show.jpg) no-repeat #a49742;margin-bottom:20px}
+#service_show .show_title h1{margin-left:496px;padding-top:66px}
+#service_show .show_title p{margin-left:500px;line-height:1.8em}
+.service_tag{margin-left:429px}
+.service_tag ins{float:left;display:inline;color:#fff;font-size:14px;font-weight:bold;text-align:center;margin-left:30px;margin-top:49px;width:100px}
+.service_tag ins span{float:left;width:50px;height:40px;margin-bottom:10px;margin-left:30px;margin-right:30px;background:url(../images/souche_png.png) no-repeat 5px -52px}
+#pay_show{height:324px;background:url(../images/payment.jpg) right top no-repeat #4398ca;margin-bottom:20px}
+#pay_show .show_title h1{margin-left:56px;padding-top:61px;margin-bottom:30px}
+#pay_show .show_title p{margin-left:56px;line-height:1.8em}
+#stockFinance .show_title{height:123px;width:100%;background-color:#4398ca}
+#stockFinance h1 span{background-position:0 -181px;margin-left:254px}
+.finance_content{padding-top:170px;background:url(../images/finance.jpg) no-repeat center 38px;margin-left:34px;margin-bottom:50px}
+.finance_content p{width:370px;height:140px;padding:20px 30px;float:left;color:#333;font-size:14px;line-height:1.7em;border:1px dotted #b2b2b2}
+.finance_content span{display:block;width:37px;height:37px;float:left;background:url(../images/souche_sprite2.jpg?124) no-repeat -122px -277px;margin:72px 15px 0}
+#ourInfo ul{float:left;width:450px;padding-top:50px;padding-bottom:30px}
+#ourInfo li{color:#333;font-size:14px;font-weight:bold;clear:both;height:77px;line-height:1.7em}
+#ourInfo span{display:block;width:50px;height:50px;float:left;background:url(../images/souche_sprite2.jpg?124) no-repeat -166px -276px;margin-left:48px;margin-right:10px}
+.ourInfo_weibo ins{float:right;margin-right:164px;_margin-right:114px;margin-top:-2px;*margin-top:-25px;width:65px;height:25px}
+#ourInfo a{color:#666;font-weight:normal}
+#ourInfo a:hover{color:#e70}
+.ourInfo_phone{text-indent:-9999em;background:url(../images/souche_sprite2.jpg?124) no-repeat 103px -457px;_background:none}
+#ourInfo .ourInfo_weibo span{background-position:-225px -276px}
+#ourInfo .ourInfo_taobao span{background-position:-286px -276px}
+#ourInfo .ourInfo_cooper span{background-position:-349px -276px}
+.weixin{width:245px;padding-top:56px;text-align:center;float:right;display:inline;color:#333;margin-right:63px}
+.weixin h1{font-size:18px;font-family:"\5FAE\8F6F\96C5\9ED1",Tahoma,Verdana;margin-bottom:33px}
+.weixin img{margin:20px 0}
+.weixin p{line-height:1.7em}
+.souche_weibo{color:#333;text-align:left;padding-left:52px}
+.souche_weibo:hover{text-decoration:none}
+#advance_banner{width:100%;height:800px;background:url(../images/advantage2.jpg) no-repeat top center #e6ebef;text-indent:-9999em;border:1px blue solid;}
+#footer{position:relative;zoom:1;}
+
+
+
+
+
+fieldset, img {
+	border: 0
+}
+dl {
+	border: none;
+	-webkit-margin-before: 0;
+	-webkit-margin-after: 0;
+}
+:focus {
+	outline: 0
+}
+address, caption, cite, code, dfn, em, strong, th, var, optgroup {
+	font-style: normal;
+	font-weight: normal
+}
+h1, h2, h3, h4, h5, h6 {
+	font-size: 100%;
+	font-weight: normal
+}
+abbr, acronym {
+	border: 0;
+	font-variant: normal
+}
+input, button, textarea, select, optgroup, option {
+	font-family: inherit;
+	font-size: inherit;
+	font-style: inherit;
+	font-weight: inherit
+}
+code, kbd, samp, tt {
+	font-size: 100%
+}
+input, button, textarea, select {
+*font-size:100%
+}
+ol, ul {
+	list-style: none
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0
+}
+caption, th {
+	text-align: left
+}
+sup, sub {
+	font-size: 100%;
+	vertical-align: baseline
+}
+:link, :visited, ins {
+	text-decoration: none
+}
+blockquote, q {
+	quotes: none
+}
+blockquote:before, blockquote:after, q:before, q:after {
+	content: '';
+	content: none
+} 
+
+
+
+a {
+	color: #000
+}
+a:hover {
+	text-decoration: none;
+	color: #e70
+}
+.wrap {
+	width: 1000px;
+	margin: 0 auto;
+	zoom: 1;
+}
+.marginRight0 {
+	margin-right: 0
+}
+.wrapGrayBg {
+	height: 100%;
+	width: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background-color: #000;
+	z-index: 10000
+}
+.must_write {
+	color: #f00;
+	padding-right: 5px
+}
+
+.day_div{
+ 	height:46px;
+	width:  80px;
+	background-image: url("../img/travel-border.png");
+	background-repeat: repeat-y;
+	background-position: 89px 0px;
+
+}
+
+
+.bg_none{
+
+	 background-color: #fff;
+
+
+}
+
+.traffic_bus{
+	height:35px;
+}
+
+
+.hidden {
+	display: none !important
+}
+optgroup {
+	color: #008000;
+	background-color: #f5f5f5;
+	font-weight: bold
+}
+option {
+	color: #333;
+	line-height: 1.8em;
+	font-style: normal;
+	font-weight: normal;
+	background-color: #fff
+}
+#header {
+	background-color: #e7e7e7
+}
+
+#footer {
+	margin-top: 30px;
+	height: auto
+}
+#footer .wrapper {
+	width: 1190px;
+	margin: 0 auto;
+	overflow: hidden
+}
+#footer .friendlinks {
+	text-align: center;
+	margin-top: 20px
+}
+#footer .friendlinks a {
+	font-size: 12px;
+	color: #999;
+	padding: 0 10px;
+	border-right: 1px solid #e6e6e6
+}
+#footer .friendlinks a.last {
+	border: none
+}
+#footer .footer-content {
+	background: #f5f5f5;
+	border-top: 1px solid #e6e6e6
+}
+#footer .performance {
+	padding: 40px 0;
+	border-bottom: 1px solid #e6e6e6;
+	width: 1400px
+}
+#footer .performance i {
+	display: block;
+	width: 40px;
+	height: 40px;
+	position: absolute;
+	top: 8px;
+	left: 20px
+}
+#footer .performance .per {
+	float: left;
+	width: 465px
+}
+#footer .performance .per a {
+	display: block
+}
+#footer .performance .per-1 a {
+	background: url(../image/per-1.png) no-repeat;
+	background-position: left
+}
+#footer .performance .per-2 a {
+	background: url(../image/per-2.png) no-repeat;
+	background-position: left
+}
+#footer .performance .per-3 a {
+	background: url(../image/per-3.png) no-repeat;
+	background-position: left
+}
+#footer .performance .t {
+	font-size: 16px;
+	line-height: 30px;
+	color: #666;
+	margin-left: 50px
+}
+#footer .performance .st {
+	font-size: 14px;
+	color: #999;
+	line-height: 20px;
+	margin-left: 50px
+}
+#footer .company_info {
+	padding: 20px 0px
+}
+#footer .company_info .wrap {
+	text-align: center
+}
+#footer .company_info .wrap a {
+	color: #666;
+	padding: 0 10px
+}
+
+
+
+
+
+.DB_gallery ul, .DB_gallery li{list-style:none;margin:0;padding:0}
+.DB_gallery img{border:none;vertical-align:top;}
+.DB_gallery{ position: relative; width:360px;min-height:66px; }
+.DB_gallery .DB_imgSet {position:relative;width:360px;height:240px;overflow:hidden;  }
+.DB_gallery .DB_imgSet .DB_imgWin{height:100%; width:360px; height:240px;}
+
+
+
+.DB_gallery .DB_imgSet .DB_imgWin img{ width:360px; height:240px; }
+.DB_gallery .DB_imgSet .DB_page{position:absolute;bottom:0;font:11px tahoma bold;padding:5px;color:#ffffff}
+.DB_gallery .DB_imgSet .DB_page .DB_current{color:#ffff00}
+.DB_gallery .DB_imgSet .DB_page .DB_total{color:#ffcc00}
+.DB_gallery .DB_imgSet .DB_prevBtn{position:absolute;top:50%;margin-top:-45px;cursor:pointer;left:0;   }
+
+
+.DB_gallery .DB_imgSet .DB_nextBtn{position:absolute;top:50%;margin-top:-45px;cursor:pointer;right:0;  }
+
+.DB_gallery .DB_thumSet {position:relative;margin-top:8px;height:62px;overflow:hidden;  }
+.DB_gallery .DB_thumSet .DB_thumMove{position:relative;width:900px;white-space:nowrap;font-size:0;}
+.DB_gallery .DB_thumSet .DB_thumMoves{position:relative;width:1000px;white-space:nowrap;font-size:0;}
+.DB_gallery .DB_thumSet .DB_thumMove li{ display:inline;margin-right:5px;width:75px;height:56px;}
+.DB_gallery .DB_thumSet .DB_thumMove li img{ width:86px; height:59px;}
+.DB_gallery .DB_thumSet .DB_prevPageBtn{position:absolute;top:0;cursor:pointer;left:0; }
+.DB_gallery .DB_thumSet .DB_nextPageBtn{position:absolute;top:0;cursor:pointer;right:0; }
+.DB_gallery .DB_thumSet .DB_prevPageBtn img,.DB_gallery .DB_thumSet .DB_nextPageBtn img{width:15px; height:56px;}
+.DB_gallery .DB_thumSet .DB_thumLine{position:absolute;width:86px;height:56px;border-bottom:3px solid #ffa800;left:0;top:0;}
+.stop{display:inline-block; width:50px;  line-height:35px; cursor:pointer;float:right;margin-right: 455px;margin-top: -32px;display:none; text-align: center; }
+.photo{display:inline-block; width:200px;  line-height:35px; cursor:pointer;float:right;margin-right:250px;margin-top: -35px;display:block; text-align: center; }
+
+
+
+
+
+.DB_gallery .big_small {position:relative;width:450px;height:320px;overflow:hidden;}
+.DB_gallery .DB_imgSet .DB_imgWinb{width:450px;height:320px;float:left;}
+.DB_gallery .DB_imgSet .DB_imgWinb img{width:450px;height:320px;}
+.DB_gallery .DB_imgSet .DB_prevBtnb{width:225px;height:360px;float:left; top:0%;  }
+.DB_gallery .DB_imgSet .DB_nextBtnb{width:225px;height:360px;float:right ;  top:0%;  }
+.DB_gallery .DB_thumSetb {width:450px;  }
+
+
+
+/* 防止旅游详情页中详情图片过宽，超出边线    */
+img{
+	max-width:850px;
+}
+
+

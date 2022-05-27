@@ -57,7 +57,6 @@ websocket Demo---- user000 <br />
             window.onbeforeunload = function(){
                 websocket.close();
             }
-
         }else{
             setMessageInnerHTML("当前浏览器不支持websocket");
             alert('Not support websocket')

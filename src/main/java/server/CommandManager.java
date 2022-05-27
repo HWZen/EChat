@@ -38,7 +38,6 @@ public class CommandManager {
             return false;
         }
         return true;
-
     }
 
     static public boolean login(String userId, String password, String cookie) throws SQLException {
