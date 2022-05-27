@@ -45,26 +45,42 @@ public class LoginActivate extends HttpServlet {
         String id = request.getParameter("name");
         String pwd = request.getParameter("password");
         String code = request.getParameter("code");
-        String cookie = id;
+        String cookie = null;
         Cookie[] cookies = request.getCookies();
-        if(cookies == null) {
-            Cookie uid_cookie = new Cookie("uid", id);
+        if(cookies.length == 1) {
+            cookie = cookies[0].getValue();
+            Cookie uid_cookie = new Cookie("browser_uid", cookie);
             uid_cookie.setMaxAge(24*60*60);    //一天
             response.addCookie(uid_cookie);
+        }else{
+            for (Cookie c : cookies) {
+                if(c.getName().equals("browser_uid")) {
+                    cookie = c.getValue();
+                    break;
+                }
+            }
+            if(cookie == null) {
+                throw new RuntimeException("no browser_uid");
+            }
         }
+
         if(!isCorrectCode(code)) {
+            System.out.println("code error");
             request.setAttribute("loginMessage","验证码错误");
             request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);
             return;
         }
         else if(!isCorrectUser(id,pwd,cookie)){
+            System.out.println("user error");
             request.setAttribute("loginMessage","用户名/密码错误");
             request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);
             return;
         }
         else {
+            System.out.println("login success");
             request.setAttribute("userID", id);
             request.setAttribute("userID",id);
+            request.setAttribute("firstLogin",true);
             request.getRequestDispatcher("/message.jhtml").forward(request, response);
             return;
         }

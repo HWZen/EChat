@@ -21,6 +21,7 @@ public class FriendTest {
     public FriendTest() throws SQLException {
     }
 
+    @Test
     public void addAndDeleteFriendTest() throws SQLException {
         System.out.println("addFriendTest");
         User user = userInter.byId("test@qq.com");

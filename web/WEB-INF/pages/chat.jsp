@@ -57,10 +57,10 @@
                                     <div data-v-9beceada="" class="list-container ps ps--active-y">
                                         <div data-v-9beceada="" class="list">
                                             <c:forEach items="${TopicList}" var="topic">
-                                                <c:if test="${topic.getTopicName() == topicName}">
-                                                    <div data-v-42a3b689="" data-v-9beceada="" class="list-item active" id="${topic.getTopicName()}" onclick="topicSwitch(this.id)">
+                                                <c:if test="${topic.getSessionName() == topicName}">
+                                                    <div data-v-42a3b689="" data-v-9beceada="" class="list-item active" id="${topic.getSessionName()}" onclick="topicSwitch(this.id)">
                                                         <div data-v-42a3b689="" class="name-box">
-                                                            <div data-v-42a3b689="" class="name" title="topic-name">${topic.getTopicName()}</div>
+                                                            <div data-v-42a3b689="" class="name" title="topic-name">${topic.getSessionName()}</div>
                                                             <div data-v-42a3b689="" title="" class="last-word"></div>
                                                         </div>
                                                         <div data-v-42a3b689="" class="close">
@@ -71,10 +71,10 @@
                                                         <!---->
                                                     </div>
                                                 </c:if>
-                                                <c:if test="${topic.getTopicName() != topicName}">
-                                                    <div data-v-42a3b689="" data-v-9beceada="" class="list-item" id="${topic.getTopicName()}" onclick="topicSwitch(this.id)">
+                                                <c:if test="${topic.getSessionName() != topicName}">
+                                                    <div data-v-42a3b689="" data-v-9beceada="" class="list-item" id="${topic.getSessionName()}" onclick="topicSwitch(this.id)">
                                                         <div data-v-42a3b689="" class="name-box">
-                                                            <div data-v-42a3b689="" class="name" title="topic-name">${topic.getTopicName()}</div>
+                                                            <div data-v-42a3b689="" class="name" title="topic-name">${topic.getSessionName()}</div>
                                                             <div data-v-42a3b689="" title="" class="last-word"></div>
                                                         </div>
                                                         <div data-v-42a3b689="" class="close">

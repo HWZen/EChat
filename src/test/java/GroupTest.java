@@ -22,6 +22,7 @@ public class GroupTest {
     public GroupTest() throws SQLException {
     }
 
+    @Test
     public void createGroup() throws SQLException {
         System.out.println("createGroup");
         UserInter userInter = new UserInterImpl();
@@ -56,6 +57,7 @@ public class GroupTest {
         assert chatSession.getOwnerId().equals(users[0].getId());
     }
 
+    @Test
     public void groupChatTest() throws SQLException {
         int size = msgInter.bySessionId("-1").size();
         Msg msg = new Msg("test0@qq.com", "-1", new Date(), "Hello, I'm test0");
@@ -71,6 +73,7 @@ public class GroupTest {
 
     }
 
+    @Test
     public void deleteGroup() throws SQLException {
         System.out.println("deleteGroup");
         ChatSessionInter chatSessionInter = new ChatSessionInterImpl();
@@ -89,6 +92,7 @@ public class GroupTest {
 
     }
 
+    @Test
     public void updateGroup() throws SQLException {
         System.out.println("editGroup");
         ChatSession cs = chatSessionInter.byId("-1");

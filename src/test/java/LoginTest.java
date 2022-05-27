@@ -14,6 +14,7 @@ import java.util.Date;
 public class LoginTest {
     static String cookie = "TEST_COOKIE";
 
+    @Test
     public void logintest() throws SQLException {
         UserInter userInter = new UserInterImpl();
         User user = userInter.byId("test@qq.com");
@@ -24,6 +25,7 @@ public class LoginTest {
 
     }
 
+    @Test
     public void logouttest() throws SQLException {
         UserInter userInter = new UserInterImpl();
         User user = userInter.byId("test@qq.com");

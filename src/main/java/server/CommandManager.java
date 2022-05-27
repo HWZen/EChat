@@ -2,6 +2,7 @@ package server;
 
 import entity.*;
 import entity.sql.ChatSessionInterImpl;
+import entity.sql.MsgInterImpl;
 import entity.sql.UserInterImpl;
 
 import java.sql.SQLException;
@@ -12,11 +13,13 @@ public class CommandManager {
 
     private static UserInter userInter;
     private static ChatSessionInter chatSessionInter;
+    private static MsgInter msgInter;
 
     static {
         try {
             userInter = new UserInterImpl();
             chatSessionInter = new ChatSessionInterImpl();
+            msgInter = new MsgInterImpl();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -57,6 +60,13 @@ public class CommandManager {
         if(user == null)
             return null;
         return chatSessionInter.getAllSessions(user.getId());
+    }
+
+    static public List<Msg> getSessionMsg(String cookie, String sessionId) throws SQLException {
+        User user = AuthorityManager.GetUser(new Cookie(cookie));
+        if(user == null)
+            return null;
+        return msgInter.bySessionId(sessionId);
     }
 
     static public ChatSession addFriend(String cookie, String friendId) throws SQLException {
@@ -150,6 +160,8 @@ public class CommandManager {
         }
         else return false;
     }
+
+
 
 
 }
