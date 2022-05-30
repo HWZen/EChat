@@ -14,7 +14,7 @@ public class Constants {
 	public static Color[] color = { Color.BLACK, Color.RED, Color.DARK_GRAY, Color.BLUE };
 
 	// 验证码的字符库
-	public static final String IMAGE_CHAR = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+	public static final String IMAGE_CHAR = "ABCDEFGHJKMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz";
 
 	// 验证码的宽度
 	public static final Integer IMAGE_WIDTH = 120;

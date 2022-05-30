@@ -55,6 +55,10 @@ public class CommandManager {
         return AuthorityManager.addAuthenticatedLogin(user, cookie);
     }
 
+    static public User getUser(String cookie) throws SQLException {
+        return AuthorityManager.GetUser(new Cookie(cookie));
+    }
+
     static public List<ChatSession> getChatSessions(String cookie) throws SQLException {
         User user = AuthorityManager.GetUser(new Cookie(cookie));
         if(user == null)
@@ -159,6 +163,13 @@ public class CommandManager {
             return chatSessionInter.deleteSession(groupId);
         }
         else return false;
+    }
+
+    static public ChatSession getChatSession(String cookie, String chatSessionId) throws SQLException {
+        User user = AuthorityManager.GetUser(new Cookie(cookie));
+        if(user == null)
+            return null;
+        return chatSessionInter.byId(chatSessionId);
     }
 
 

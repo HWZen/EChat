@@ -38,7 +38,7 @@ public class ConnectManager {
         if(cookie == null)
             return null;
         for (Map.Entry<Session, Cookie> entry : connectMap.entrySet()) {
-            if (entry.getValue().equals(cookie)) {
+            if (entry.getValue().str.equals(cookie.str)) {
                 return entry.getKey();
             }
         }

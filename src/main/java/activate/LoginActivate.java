@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import constant.Globle;
+import server.CommandManager;
+
 import static server.CommandManager.*;
 
 public class LoginActivate extends HttpServlet {
@@ -78,10 +80,7 @@ public class LoginActivate extends HttpServlet {
         }
         else {
             System.out.println("login success");
-            request.setAttribute("userID", id);
-            request.setAttribute("userID",id);
-            request.setAttribute("firstLogin",true);
-            request.getRequestDispatcher("/message.jhtml").forward(request, response);
+            request.getRequestDispatcher("/message.jhtml?requireType=init").forward(request, response);
             return;
         }
     }

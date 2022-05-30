@@ -34,11 +34,31 @@ public class MessageActivate extends HttpServlet {
         request.setAttribute("messages", msgs);
         request.setAttribute("TopicList", topics);
         request.setAttribute("topicName",topic);
-        request.getRequestDispatcher("/WEB-INF/pages/chat.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/pages/index.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        String requireType = (String)request.getAttribute("requireType");
+        assert requireType != null;
+        if(requireType.equals("getChatSessionMsg")){
+            String topicId  = (String)request.getAttribute("topicId");
+            try {
+                msgs = CommandManager.getSessionMsg(request.getCookies()[1].getValue(), topicId);
+                assert msgs != null;
+                topic = topicId;
+                request.setAttribute("messages", msgs);
+                request.setAttribute("topicName", topic);
+                request.setAttribute("TopicList", topics);
+                request.getRequestDispatcher("/WEB-INF/pages/index.jsp").forward(request, response);
+                return;
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+
         Boolean isFirst = (Boolean)request.getAttribute("firstLogin");
         if(isFirst == null || isFirst){
             Cookie[] cookies = request.getCookies();
@@ -73,7 +93,7 @@ public class MessageActivate extends HttpServlet {
         request.setAttribute("messages", msgs);
         request.setAttribute("TopicList", topics);
         request.setAttribute("topicName",topic);
-        request.getRequestDispatcher("/WEB-INF/pages/chat.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/pages/index.jsp").forward(request, response);
     }
 }
 
