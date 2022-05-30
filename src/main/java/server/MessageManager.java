@@ -12,7 +12,6 @@ public class MessageManager {
     private static final MsgInter msgInter = new MsgInterImpl();
 
     static public void recvMessage(Msg msg) throws SQLException {
-        msgInter.add(msg);
         if(msg.getTo() != null) {
             msgInter.add(msg);
             ChatSession group = msg.getTo();

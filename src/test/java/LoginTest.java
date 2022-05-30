@@ -38,7 +38,7 @@ public class LoginTest {
             assert AuthorityManager.isLogin(user);
         }
 
-        boolean err = CommandManager.logout("test@qq.com", cookie);
+        boolean err = CommandManager.logout(cookie);
         assert err;
         assert !AuthorityManager.isLogin(user);
     }

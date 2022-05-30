@@ -26,8 +26,8 @@ public class CommandManager {
     }
 
 
-    static public boolean logout(String userID, String cookie) throws SQLException {
-        User user = userInter.byId(userID);
+    static public boolean logout(String cookie) throws SQLException {
+        User user = getUser(cookie);
         if (AuthorityManager.isLogin(user)) {
             Cookie c = AuthorityManager.getCookie(user);
             if(c != null && c.str.equals(cookie)) {

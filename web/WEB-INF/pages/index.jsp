@@ -17,13 +17,18 @@
 <body>
 
 
-<jsp:useBean id="activeSession" scope="request" type="entity.ChatSession"/>
 <jsp:useBean id="chatSessionList" scope="request" type="java.util.List"/>
 <jsp:useBean id="user" scope="request" type="entity.User"/>
-<jsp:useBean id="messages" scope="request" type="java.util.List"/>
+<jsp:useBean id="noActiveSession" scope="request" type="java.lang.Boolean"/>
+<c:if test="${noActiveSession eq false}">
+    <jsp:useBean id="activeSession" scope="request" type="entity.ChatSession"/>
+    <jsp:useBean id="messages" scope="request" type="java.util.List"/>
+</c:if>
 
 EChat Demo<br />
 <div>Login: ${user.nickname}</div>
+<button onclick="logout()">Logout</button>
+<div>Chat Session: ${chatSessionList.size()} Session</div>
 <c:forEach items="${chatSessionList}" var="Session">
     <script type="text/javascript">
         console.log(${Session.id});
@@ -48,16 +53,35 @@ EChat Demo<br />
         </c:otherwise>
     </c:choose>
 </c:forEach>
+<br/>
+<br/>
+<div>Add Friend</div>
+<input id="newFriendId" type="text">
+<button onclick="addFriend()">Add Friend</button>
 
 
 <br/>
 <br/>
-<br />
+<br/>
+<c:if test="${noActiveSession eq false}">
+<c:choose>
+    <c:when test="${activeSession.ownerId ne 'admin'}">
+        <div>Now chat in ${activeSession.sessionName}</div>
+    </c:when>
+    <c:otherwise>
+        <c:choose>
+            <c:when test="${activeSession.sessionMemberIds[0] eq user.getId()}">    <!--如果 -->
+                <div>Now chat with ${activeSession.getSessionMembers()[1].nickname}</div>
+            </c:when>
+            <c:otherwise>  <!--否则 -->
+                <div>Now chat with ${activeSession.getSessionMembers()[0].nickname}</div>
+            </c:otherwise>
+        </c:choose>
+    </c:otherwise>
+</c:choose>
 
-<input id="text" type="text" />
-
-
-
+<div>Send Message</div>
+<input id="sendMsg" type="text" />
 <button onclick="send()"> Send </button>
 <button   onclick="closeWebSocket()"> Close </button>
 <div id="message">
@@ -65,6 +89,7 @@ EChat Demo<br />
         ${msg.fromUserId} : ${msg.content} <br/>
     </c:forEach>
 </div>
+</c:if>
 
 <script type="text/javascript">
     function getCookie(cname)
@@ -81,7 +106,8 @@ EChat Demo<br />
     //判断当前浏览器是否支持WebSocket
     let websocket;
     if('WebSocket' in window){
-        websocket = new WebSocket("ws://localhost:8080/EChat_Web_exploded/chat/"+getCookie("browser_uid"));
+        const hostname = window.document.domain;
+        websocket = new WebSocket("ws://"+hostname+":8080/EChat_Web_exploded/chat/"+getCookie("browser_uid"));
         setMessageInnerHTML("Connect success");
         console.log("link success")
 
@@ -131,7 +157,7 @@ EChat Demo<br />
 
     //发送消息
     function send(){
-        var message = "{\"from\":\"${user.id}\",\"to\":\"${activeSession.id}\",\"message\":\""+document.getElementById('text').value+"\"}";
+        var message = "{\"from\":\"${user.id}\",\"to\":\"${activeSession.id}\",\"message\":\""+document.getElementById('sendMsg').value+"\"}";
         websocket.send(message);
         setMessageInnerHTML(message);
     }
@@ -140,6 +166,25 @@ EChat Demo<br />
         window.document.getElementById('message').innerHTML = "";
         let form = document.createElement("form");
         form.action = "message.jhtml?requireType=getChatSessionMsg&sessionId="+sessionId;
+        form.method = "post";
+        document.body.appendChild(form);
+        form.submit();
+        document.body.removeChild(form);
+    }
+
+    function addFriend(){
+        let friendId = document.getElementById('newFriendId').value;
+        let form = document.createElement("form");
+        form.action = "message.jhtml?requireType=addFriend&friendId="+friendId;
+        form.method = "post";
+        document.body.appendChild(form);
+        form.submit();
+        document.body.removeChild(form);
+    }
+
+    function logout(){
+        let form = document.createElement("form");
+        form.action = "message.jhtml?requireType=logout";
         form.method = "post";
         document.body.appendChild(form);
         form.submit();
