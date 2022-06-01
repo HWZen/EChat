@@ -49,7 +49,7 @@ public class GroupTest {
             chatSessionInter.deleteSession("-1");
         }
 
-        assert CommandManager.createGroup(cookie, "testGroup", members, "-1");
+        assert CommandManager.createGroup(cookie, "testGroup", members, "-1") != null;
 
         ChatSession chatSession = chatSessionInter.byId("-1");
         assert chatSession != null;

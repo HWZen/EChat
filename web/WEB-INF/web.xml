@@ -31,5 +31,30 @@
         <servlet-name>Message</servlet-name>
         <url-pattern>/message.jhtml</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>Register</servlet-name>
+        <servlet-class>activate.RegisterActivate</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Register</servlet-name>
+        <url-pattern>/register.jhtml</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>PersonalSetting</servlet-name>
+        <servlet-class>activate.PersonalSettingActivate</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PersonalSetting</servlet-name>
+        <url-pattern>/personalSetting.jhtml</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>GroupSetting</servlet-name>
+        <servlet-class>activate.GroupSettingActivate</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GroupSetting</servlet-name>
+        <url-pattern>/groupSetting.jhtml</url-pattern>
+    </servlet-mapping>
+
 </web-app>
 

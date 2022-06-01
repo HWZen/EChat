@@ -69,7 +69,7 @@ $(document).ready(
 			$("#regesits").click(function() {
 				$("#third_part").show();
 				$("#logins").show();
-				$("#pwd_p").hide();
+				$("#pwd_p").show();
 				$("#regesits").hide();
 				$("#identfy_all").hide();
 				$(":button").val("注 册");

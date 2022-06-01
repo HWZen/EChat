@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%--
   Created by IntelliJ IDEA.
@@ -24,22 +25,15 @@
     <jsp:useBean id="activeSession" scope="request" type="entity.ChatSession"/>
     <jsp:useBean id="messages" scope="request" type="java.util.List"/>
 </c:if>
-
+<img src="<c:url value="/resoure/logo1.png"/>" alt="logo"><br/>
 EChat Demo<br />
 <div>Login: ${user.nickname}</div>
-<button onclick="logout()">Logout</button>
+<button onclick="logout()">Logout</button> <button onclick="setting()">Setting</button>
 <div>Chat Session: ${chatSessionList.size()} Session</div>
 <c:forEach items="${chatSessionList}" var="Session">
-    <script type="text/javascript">
-        console.log(${Session.id});
-        console.log("${Session.getSessionMembers()[0].nickname}")
-        console.log("${Session.getSessionMembers()[1].nickname}");
-        console.log("${Session.sessionMemberIds[0]}");
-        console.log("${user.getId()}");
-    </script>
     <c:choose>
         <c:when test="${Session.ownerId ne 'admin'}">
-            <button onclick="selectChatSession('${Session.id}')">${Session.sessionName}</button>
+            <button onclick="selectChatSession('${Session.id}')">${Session.sessionName}(id:${Session.id})</button>
         </c:when>
         <c:otherwise>
             <c:choose>
@@ -55,9 +49,6 @@ EChat Demo<br />
 </c:forEach>
 <br/>
 <br/>
-<div>Add Friend</div>
-<input id="newFriendId" type="text">
-<button onclick="addFriend()">Add Friend</button>
 
 
 <br/>
@@ -82,11 +73,12 @@ EChat Demo<br />
 
 <div>Send Message</div>
 <input id="sendMsg" type="text" />
-<button onclick="send()"> Send </button>
-<button   onclick="closeWebSocket()"> Close </button>
+<button onclick="send()"> Send </button><br/>
 <div id="message">
     <c:forEach items="${messages}" var="msg">
+        <fmt:formatDate value="${msg.sendTime}" type="both" dateStyle="long" timeStyle="long"/> <br/>
         ${msg.fromUserId} : ${msg.content} <br/>
+        <br/>
     </c:forEach>
 </div>
 </c:if>
@@ -172,19 +164,20 @@ EChat Demo<br />
         document.body.removeChild(form);
     }
 
-    function addFriend(){
-        let friendId = document.getElementById('newFriendId').value;
+
+
+    function logout(){
         let form = document.createElement("form");
-        form.action = "message.jhtml?requireType=addFriend&friendId="+friendId;
+        form.action = "message.jhtml?requireType=logout";
         form.method = "post";
         document.body.appendChild(form);
         form.submit();
         document.body.removeChild(form);
     }
 
-    function logout(){
+    function setting(){
         let form = document.createElement("form");
-        form.action = "message.jhtml?requireType=logout";
+        form.action = "personalSetting.jhtml?requireType=init";
         form.method = "post";
         document.body.appendChild(form);
         form.submit();

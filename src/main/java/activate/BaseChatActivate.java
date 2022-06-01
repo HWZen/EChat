@@ -12,14 +12,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
+import static server.CommandManager.createGroup;
 import static server.CommandManager.login;
 
 public class BaseChatActivate extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("in message activate");
         try {
             String requireType = req.getParameter("requireType");
 
@@ -27,8 +32,6 @@ public class BaseChatActivate extends HttpServlet {
                 init(req, resp);
             } else if (requireType.equals("getChatSessionMsg")) {
                 getChatSessionMsg(req, resp);
-            } else if (requireType.equals("addFriend")) {
-                addFriend(req, resp);
             } else if (requireType.equals("logout")) {
                 logout(req, resp);
             } else {
@@ -47,11 +50,7 @@ public class BaseChatActivate extends HttpServlet {
 
     public void init(HttpServletRequest req, HttpServletResponse resp) throws IOException, SQLException, ServletException {
         Cookie cookies[] = req.getCookies();
-        if(cookies == null || cookies.length < 2){
-            resp.sendRedirect("/EChat_Web_exploded");
-            return;
-        }
-        String browser_uid = null;
+        String browser_uid = req.getParameter("browser_uid");
         for (Cookie c : cookies) {
             if(c.getName().equals("browser_uid")){
                 browser_uid = c.getValue();
@@ -61,6 +60,7 @@ public class BaseChatActivate extends HttpServlet {
         assert browser_uid != null;
         User user = CommandManager.getUser(browser_uid);
         if(user == null){
+            System.out.println("no login");
             resp.sendRedirect("/EChat_Web_exploded");
             return;
         }
@@ -82,7 +82,6 @@ public class BaseChatActivate extends HttpServlet {
         req.setAttribute("activeSession", selectChatSession);
         req.setAttribute("messages", msgs);
         req.getRequestDispatcher("/WEB-INF/pages/index.jsp").forward(req, resp);
-
     }
 
     public void getChatSessionMsg(HttpServletRequest req, HttpServletResponse resp){
@@ -109,32 +108,7 @@ public class BaseChatActivate extends HttpServlet {
         }
     }
 
-    public void addFriend(HttpServletRequest req, HttpServletResponse resp){
-        try {
-            String browser_uid = null;
-            for (Cookie c : req.getCookies()) {
-                if(c.getName().equals("browser_uid")){
-                    browser_uid = c.getValue();
-                    break;
-                }
-            }
-            assert browser_uid != null;
-            String friend_uid = req.getParameter("friendId");
-            User user = CommandManager.getUser(browser_uid);
-            ChatSession friendSession = CommandManager.addFriend(browser_uid, friend_uid);
-            if(user == null || friendSession == null){
-                resp.sendRedirect("/");
-                return;
-            }
-            setBaseData(req, resp);
-            req.setAttribute("activeSession", friendSession);
-            req.setAttribute("messages", new ArrayList<>());
-            req.getRequestDispatcher("/WEB-INF/pages/index.jsp").forward(req, resp);
-        }
-        catch (SQLException | IOException | ServletException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
 
     public void setBaseData(HttpServletRequest req, HttpServletResponse resp) throws IOException, SQLException {
         Cookie cookies[] = req.getCookies();
@@ -179,4 +153,5 @@ public class BaseChatActivate extends HttpServlet {
             throw new RuntimeException(e);
         }
     }
+
 }

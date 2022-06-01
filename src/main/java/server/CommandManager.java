@@ -5,6 +5,7 @@ import entity.sql.ChatSessionInterImpl;
 import entity.sql.MsgInterImpl;
 import entity.sql.UserInterImpl;
 
+import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
@@ -59,6 +60,15 @@ public class CommandManager {
         return AuthorityManager.GetUser(new Cookie(cookie));
     }
 
+    static public boolean updateUser(String cookie, User user) throws SQLException {
+        User oldUser = getUser(cookie);
+        if(oldUser == null)
+            return false;
+        if(!oldUser.getId().equals(user.getId()))
+            return false;
+        return userInter.updateUser(user);
+    }
+
     static public List<ChatSession> getChatSessions(String cookie) throws SQLException {
         User user = AuthorityManager.GetUser(new Cookie(cookie));
         if(user == null)
@@ -107,15 +117,15 @@ public class CommandManager {
         return userInter.createUser(user);
     }
 
-    static public boolean createGroup(String cookie, String groupName, List<String> userIds, String id) throws SQLException {
+    static public String createGroup(String cookie, String groupName, List<String> userIds, String id) throws SQLException {
         User user = AuthorityManager.GetUser(new Cookie(cookie));
         if(user == null)
-            return false;
+            return null;
         if(id == null)
-            chatSessionInter.createSession(groupName, user, userIds);
-        else
-            chatSessionInter.createSession(groupName, user, userIds, id);
-        return true;
+            return chatSessionInter.createSession(groupName, user, userIds);
+        else if(chatSessionInter.createSession(groupName, user, userIds, id))
+            return id;
+        return null;
     }
 
     static public boolean updateGroupName(String cookie, String groupId, String groupName) throws SQLException {
@@ -170,6 +180,17 @@ public class CommandManager {
         if(user == null)
             return null;
         return chatSessionInter.byId(chatSessionId);
+    }
+
+
+    static public String getAndCheckCookie(HttpServletRequest req, String browser_uid) throws SQLException {
+        javax.servlet.http.Cookie cookies[] = req.getCookies();
+        for (javax.servlet.http.Cookie cookie : cookies) {
+            if (cookie.getName().equals("browser_uid")) {
+                browser_uid = cookie.getValue();
+            }
+        }
+        return browser_uid;
     }
 
 

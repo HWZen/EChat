@@ -47,24 +47,23 @@ public class LoginActivate extends HttpServlet {
         String id = request.getParameter("name");
         String pwd = request.getParameter("password");
         String code = request.getParameter("code");
-        String cookie = null;
+        String JSESSIONID = null;
         Cookie[] cookies = request.getCookies();
-        if(cookies.length == 1) {
-            cookie = cookies[0].getValue();
-            Cookie uid_cookie = new Cookie("browser_uid", cookie);
+        String browser_uid = null;
+        for(Cookie c : cookies) {
+            if(c.getName().equals("browser_uid"))
+                browser_uid = c.getValue();
+            if(c.getName().equals("JSESSIONID"))
+                JSESSIONID = c.getValue();
+        }
+        if(browser_uid == null) {
+            browser_uid = JSESSIONID;
+            Cookie uid_cookie = new Cookie("browser_uid", browser_uid);
             uid_cookie.setMaxAge(24*60*60);    //一天
             response.addCookie(uid_cookie);
-        }else{
-            for (Cookie c : cookies) {
-                if(c.getName().equals("browser_uid")) {
-                    cookie = c.getValue();
-                    break;
-                }
-            }
-            if(cookie == null) {
-                throw new RuntimeException("no browser_uid");
-            }
         }
+        if(browser_uid == null)
+            throw new RuntimeException("no browser_uid and create failed");
 
         if(!isCorrectCode(code)) {
             System.out.println("code error");
@@ -72,7 +71,7 @@ public class LoginActivate extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);
             return;
         }
-        else if(!isCorrectUser(id,pwd,cookie)){
+        else if(!isCorrectUser(id,pwd,browser_uid)) {
             System.out.println("user error");
             request.setAttribute("loginMessage","用户名/密码错误");
             request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);
@@ -80,8 +79,7 @@ public class LoginActivate extends HttpServlet {
         }
         else {
             System.out.println("login success");
-            request.getRequestDispatcher("/message.jhtml?requireType=init").forward(request, response);
-            return;
+            request.getRequestDispatcher("/message.jhtml?requireType=init&browser_uid="+browser_uid).forward(request, response);
         }
     }
 

@@ -25,14 +25,15 @@ public class MsgInterImpl implements MsgInter {
         List<Msg> msgs = new ArrayList<>();
         String sql = "SELECT *" +
                 " FROM " + DatabaseStructure.TABLE_LOG +
-                " WHERE " + DatabaseStructure.COLUMN_SESSION_ID + " = ?";
+                " WHERE " + DatabaseStructure.COLUMN_SESSION_ID + " = ?" +
+                " ORDER BY " + DatabaseStructure.COLUMN_LOG_TIME;
         PreparedStatement preparedStatement = SQLConnection.prepareStatement(sql);
         preparedStatement.setString(1, sessionId);
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
             String fromUserId = resultSet.getString(DatabaseStructure.COLUMN_USER_ID);
             String toSessionId = resultSet.getString(DatabaseStructure.COLUMN_SESSION_ID);
-            Date sendTime = resultSet.getDate(DatabaseStructure.COLUMN_LOG_TIME);
+            Date sendTime = resultSet.getTimestamp(DatabaseStructure.COLUMN_LOG_TIME);
             String content = resultSet.getString(DatabaseStructure.COLUMN_LOG_CONTENT);
             Msg msg = new Msg(fromUserId, toSessionId, sendTime, content);
             msgs.add(msg);
