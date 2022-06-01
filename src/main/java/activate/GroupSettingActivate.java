@@ -57,7 +57,7 @@ public class GroupSettingActivate extends HttpServlet {
 
     protected  void changeGroupName(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException, ServletException {
         String groupid = req.getParameter("groupId");
-        String newName = req.getParameter("name");
+        String newName = req.getParameter("groupName");
         assert newName != null;
         assert groupid != null;
         String browser_uid = req.getParameter("browser_uid");

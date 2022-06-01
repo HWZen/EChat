@@ -92,6 +92,17 @@ New password: <input type="text" name="newPasswd" id="npwd" class="text"/><br/>
         form.submit();
         document.body.removeChild(form);
     }
+
+function createGroup(){
+        let groupName = document.getElementById('newGroupName').value;
+        let form = document.createElement("form");
+        form.action = "personalSetting.jhtml?requireType=createGroup&groupName="+groupName;
+        form.method = "post";
+        document.body.appendChild(form);
+        form.submit();
+        document.body.removeChild(form);
+    }
+
 </script>
 </body>
 </html>
