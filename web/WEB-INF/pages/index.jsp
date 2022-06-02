@@ -107,7 +107,7 @@ EChat Demo<br />
     }
     //判断当前浏览器是否支持WebSocket
     let websocket;
-    if('WebSocket' in window){
+    if('WebSocket' in window && ${noActiveSession eq false}){
         const hostname = window.document.domain;
         websocket = new WebSocket("ws://"+hostname+":8080/EChat_Web_exploded/chat/"+getCookie("browser_uid"));
         setMessageInnerHTML("Connect success");
@@ -126,7 +126,7 @@ EChat Demo<br />
         //接收到消息的回调方法
         websocket.onmessage = function(event){
             let msg = JSON.parse(event.data);
-            if(msg['to'] != ${activeSession.id}){
+            if(msg['to'] != '${activeSession.id}'){
                 return;
             }
             let message = getFmtDate() + "<br/>" + msg['from'] + ":" + msg['message'] + "<br/><br/>";
@@ -142,9 +142,6 @@ EChat Demo<br />
         window.onbeforeunload = function(){
             websocket.close();
         }
-    }else{
-        setMessageInnerHTML("当前浏览器不支持websocket");
-        alert('Not support websocket')
     }
 
 
