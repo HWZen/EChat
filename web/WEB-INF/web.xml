@@ -55,6 +55,14 @@
         <servlet-name>GroupSetting</servlet-name>
         <url-pattern>/groupSetting.jhtml</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>Desktop</servlet-name>
+        <servlet-class>activate.DesktopActivate</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Desktop</servlet-name>
+        <url-pattern>/desktop.jhtml</url-pattern>
+    </servlet-mapping>
 
 </web-app>
 

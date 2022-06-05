@@ -6,9 +6,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import constant.Globle;
 import server.CommandManager;
 
@@ -44,6 +49,11 @@ public class LoginActivate extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("login get");
+        String requireType = request.getParameter("requireType");
+        if(requireType != null && requireType.equals("desktop")){
+            desktopRequest(request, response);
+            return;
+        }
         String id = request.getParameter("name");
         String pwd = request.getParameter("password");
         String code = request.getParameter("code");
@@ -87,6 +97,50 @@ public class LoginActivate extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("login post");
         doGet(request, response);
+    }
+
+    protected void desktopRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("login desktop");
+        if(!request.getHeader("content-type").equals("application/json")) {
+            System.out.println("content-type error");
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+        InputStreamReader in = new InputStreamReader(request.getInputStream(), StandardCharsets.UTF_8);
+        BufferedReader reader = new BufferedReader(in);
+        StringBuilder sb = new StringBuilder();
+        String jsonStr = null;
+        while((jsonStr = reader.readLine()) != null) {
+            sb.append(jsonStr);
+        }
+        reader.close();
+        jsonStr = sb.toString();
+        if(jsonStr == null) {
+            System.out.println("desktop login error");
+            response.setStatus(400);
+            return;
+        }
+        System.out.println(jsonStr);
+        JSONObject json = JSON.parseObject(jsonStr);
+        String id = json.getString("username");
+        String pwd = json.getString("password");
+        System.out.println(id + " " + pwd);
+        String browser_uid = json.getString("browser_uid");
+        if(browser_uid == null) {
+            System.out.println("desktop login error");
+            response.setStatus(400);
+            response.getWriter().write("{\"res\":\"no uid\"}");
+            return;
+        }
+        if(!isCorrectUser(id,pwd,browser_uid)) {
+            System.out.println("desktop login error");
+            response.setStatus(400);
+            response.getWriter().write("{\"res\":\"id or passwd error\"}");
+            return;
+        }
+        System.out.println("desktop login success");
+        request.setAttribute("json", json);
+        request.getRequestDispatcher("/desktop.jhtml").forward(request, response);
     }
 }
 
