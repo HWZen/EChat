@@ -269,6 +269,12 @@
         console.log("-----")
         //接收到消息的回调方法
         websocket.onmessage = function(event){
+            let bag = event.data;
+            let msg = JSON.parse(bag);
+            if(msg["to"] != '${activeSession.id}') {
+                return;
+            }
+            showRecievedMessage(msg['from'],msg['message']);
             setMessageInnerHTML(event.data);
         }
 
@@ -296,11 +302,11 @@
     }
 
     function showMessage() {
-        var word = document.getElementById('message_content').value;
-        var time = new Date();
-        var time_content = '<div data-v-82bd82b8="" data-v-b2e907f6="" class="msg-time"><span data-v-318cad34="" data-v-82bd82b8=""class="time">'
+        let word = document.getElementById('message_content').value;
+        let time = new Date();
+        let time_content = '<div data-v-82bd82b8="" data-v-b2e907f6="" class="msg-time"><span data-v-318cad34="" data-v-82bd82b8=""class="time">'
                             +time.getFullYear()+"-"+time.getMonth()+"-"+time.getDay()+' '+time.getHours()+':'+time.getMinutes()+'</span></div>';
-        var word_content = '<div data-v-d5403732="" data-v-b2e907f6="" class="msg-item is-me">'+
+        let word_content = '<div data-v-d5403732="" data-v-b2e907f6="" class="msg-item is-me">'+
                       '<a data-v-d5403732="" title='+"${user.id}"+'target="_blank" class="avatar"></a>'+
                       '<div data-v-d5403732="" class="message">'+
                       '<div data-v-d5403732="" data-key="7083505303328669265" class="message-content is-me not-img">'+word+'</div>'+
@@ -308,21 +314,21 @@
         document.getElementById('message').innerHTML+= time_content+word_content;
     }
 
-    // function showRecievedMessage(uid,word) {
-    //     var time = new Date();
-    //     var time_content = '<div data-v-82bd82b8="" data-v-b2e907f6="" class="msg-time"><span data-v-318cad34="" data-v-82bd82b8=""class="time">'
-    //         +time.getFullYear()+"-"+time.getMonth()+"-"+time.getDay()+' '+time.getHours()+':'+time.getMinutes()+'</span></div>';
-    //     var word_content = '<div data-v-d5403732="" data-v-b2e907f6="" class="msg-item is-me">'+
-    //         '<a data-v-d5403732="" title='+uid+'target="_blank" class="avatar"></a>'+
-    //         '<div data-v-d5403732="" class="message">'+
-    //         '<div data-v-d5403732="" data-key="7083505303328669265" class="message-content is-me not-img">'+word+'</div>'+
-    //         '</div></div>';
-    //     document.getElementById('message').innerHTML+= time_content+word_content;
-    // }
+    function showRecievedMessage(uid,word) {
+        let time = new Date();
+        let time_content = '<div data-v-82bd82b8="" data-v-b2e907f6="" class="msg-time"><span data-v-318cad34="" data-v-82bd82b8=""class="time">'
+            +time.getFullYear()+"-"+time.getMonth()+"-"+time.getDay()+' '+time.getHours()+':'+time.getMinutes()+'</span></div>';
+        let word_content = '<div data-v-d5403732="" data-v-b2e907f6="" class="msg-item is-me">'+
+            '<a data-v-d5403732="" title='+uid+'target="_blank" class="avatar"></a>'+
+            '<div data-v-d5403732="" class="message">'+
+            '<div data-v-d5403732="" data-key="7083505303328669265" class="message-content is-me not-img">'+word+'</div>'+
+            '</div></div>';
+        document.getElementById('message').innerHTML+= time_content+word_content;
+    }
 
     function sendMessage(){
-        var msg = document.getElementById('message_content').value;
-        var bag = "{\"from\":\"${user.id}\",\"to\":\"${activeSession.id}\",\"message\":\""+msg+"\"}";
+        let msg = document.getElementById('message_content').value;
+        let bag = "{\"from\":\"${user.id}\",\"to\":\"${activeSession.id}\",\"message\":\""+msg+"\"}";
         websocket.send(bag);
         showMessage();
     }
