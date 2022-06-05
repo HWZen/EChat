@@ -18,7 +18,6 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="theme-color" content="#4393E2">
     <title>Echat</title>
-    <!-- 浏览器兼容测试 -->
     <script>
         if (!Object.defineProperty || !Element.prototype.addEventListener) alert('少年哟～你的浏览器太老了辣～赶快去换个chrome吧～')
         try {
@@ -104,7 +103,7 @@
                                                                 </div>
                                                             </c:when>
                                                             <c:otherwise>
-                                                                <div data-v-42a3b689="" data-v-9beceada="" class="list-item" id="${Session.getId()}" onclick="topicSwitch(this.id)">
+                                                                <div data-v-42a3b689="" data-v-9beceada="" class="list-item" id="${Session.getId()}" onclick="getSessionData(this.id)">
                                                                     <div data-v-42a3b689="" class="name-box">
                                                                         <div data-v-42a3b689="" class="name" title="topic-name">${Session.getSessionMembers()[0].nickname}</div>
                                                                         <div data-v-42a3b689="" title="" class="last-word"></div>
@@ -308,6 +307,18 @@
                       '</div></div>';
         document.getElementById('message').innerHTML+= time_content+word_content;
     }
+
+    // function showRecievedMessage(uid,word) {
+    //     var time = new Date();
+    //     var time_content = '<div data-v-82bd82b8="" data-v-b2e907f6="" class="msg-time"><span data-v-318cad34="" data-v-82bd82b8=""class="time">'
+    //         +time.getFullYear()+"-"+time.getMonth()+"-"+time.getDay()+' '+time.getHours()+':'+time.getMinutes()+'</span></div>';
+    //     var word_content = '<div data-v-d5403732="" data-v-b2e907f6="" class="msg-item is-me">'+
+    //         '<a data-v-d5403732="" title='+uid+'target="_blank" class="avatar"></a>'+
+    //         '<div data-v-d5403732="" class="message">'+
+    //         '<div data-v-d5403732="" data-key="7083505303328669265" class="message-content is-me not-img">'+word+'</div>'+
+    //         '</div></div>';
+    //     document.getElementById('message').innerHTML+= time_content+word_content;
+    // }
 
     function sendMessage(){
         var msg = document.getElementById('message_content').value;
