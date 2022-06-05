@@ -323,10 +323,10 @@
         let time = new Date();
         let time_content = '<div data-v-82bd82b8="" data-v-b2e907f6="" class="msg-time"><span data-v-318cad34="" data-v-82bd82b8=""class="time">'
             +time.getFullYear()+"-"+time.getMonth()+"-"+time.getDay()+' '+time.getHours()+':'+time.getMinutes()+'</span></div>';
-        let word_content = '<div data-v-d5403732="" data-v-b2e907f6="" class="msg-item is-me">'+
+        let word_content = '<div data-v-d5403732="" data-v-b2e907f6="" class="msg-item not-me">'+
             '<a data-v-d5403732="" title='+uid+'target="_blank" class="avatar"></a>'+
             '<div data-v-d5403732="" class="message">'+
-            '<div data-v-d5403732="" data-key="7083505303328669265" class="message-content is-me not-img">'+word+'</div>'+
+            '<div data-v-d5403732="" data-key="6674637179562596354" class="message-content not-img">'+word+'</div>'+
             '</div></div>';
         document.getElementById('message').innerHTML+= time_content+word_content;
     }
