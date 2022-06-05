@@ -16,8 +16,6 @@
     <title>EChat</title>
 </head>
 <body>
-
-
 <jsp:useBean id="chatSessionList" scope="request" type="java.util.List"/>
 <jsp:useBean id="user" scope="request" type="entity.User"/>
 <jsp:useBean id="noActiveSession" scope="request" type="java.lang.Boolean"/>
@@ -37,7 +35,7 @@ EChat Demo<br />
         </c:when>
         <c:otherwise>
             <c:choose>
-                <c:when test="${Session.sessionMemberIds[0] eq user.getId()}">    <!--如果 -->
+                <c:when test="${Session.sessionMemberIds[0] eq user.getId()}">
                     <button onclick="selectChatSession('${Session.id}')">${Session.getSessionMembers()[1].nickname}</button>
                 </c:when>
                 <c:otherwise>  <!--否则 -->
@@ -163,8 +161,6 @@ EChat Demo<br />
         form.submit();
         document.body.removeChild(form);
     }
-
-
 
     function logout(){
         let form = document.createElement("form");

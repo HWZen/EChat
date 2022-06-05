@@ -23,9 +23,8 @@ public class PersonalSettingActivate extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-
             String requireType = req.getParameter("requireType");
-            if(requireType == null || requireType.equals("init"))
+            if(requireType == null || requireType.equals("init") || requireType.equals("pick"))
                 init(req, resp);
             else if(requireType.equals("changeName"))
                 changeName(req, resp);
@@ -43,6 +42,8 @@ public class PersonalSettingActivate extends HttpServlet {
     }
 
     public void init(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ServletException, IOException {
+        System.out.println("init");
+        String part = req.getParameter("picked");
         String browser_uid = req.getParameter("browser_uid");
         browser_uid = CommandManager.getAndCheckCookie(req, browser_uid);
         User user = CommandManager.getUser(browser_uid);
@@ -52,12 +53,13 @@ public class PersonalSettingActivate extends HttpServlet {
             List<ChatSession> chatSessions = CommandManager.getChatSessions(browser_uid);
             req.setAttribute("user", user);
             req.setAttribute("chatSessions", chatSessions);
-            req.getRequestDispatcher("/WEB-INF/pages/personalSetting.jsp").forward(req, resp);
+            req.setAttribute("selected",part);
+            req.getRequestDispatcher("/WEB-INF/pages/user.jsp").forward(req, resp);
         }
     }
 
     protected void changeName(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException, ServletException {
-
+        System.out.println("change Name");
         String newName = req.getParameter("name");
         if(newName == null){
             System.out.println("newName is null");
@@ -73,12 +75,12 @@ public class PersonalSettingActivate extends HttpServlet {
         }
         user.setNickname(newName);
         CommandManager.updateUser(browser_uid, user);
+        req.setAttribute("picked","changeName");
         init(req, resp);
-
     }
 
     protected void changePasswd(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException, ServletException {
-
+        System.out.println("change pwd");
         String oldPasswd = req.getParameter("opwd");
         String newPasswd = req.getParameter("npwd");
         assert oldPasswd != null;
@@ -103,6 +105,7 @@ public class PersonalSettingActivate extends HttpServlet {
     }
 
     public void addFriend(HttpServletRequest req, HttpServletResponse resp){
+        System.out.println("add");
         try {
             String friend_uid = req.getParameter("friendId");
             String browser_uid = req.getParameter("browser_uid");
@@ -123,6 +126,7 @@ public class PersonalSettingActivate extends HttpServlet {
     }
 
     public void CreateGroup(HttpServletRequest req, HttpServletResponse resp){
+        System.out.println("group");
         try {
             String groupName = req.getParameter("groupName");
             String browser_uid = req.getParameter("browser_uid");

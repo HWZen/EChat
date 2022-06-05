@@ -38,8 +38,6 @@
     <li><input type="text" id="newMemberId" value="new member(input member id)"></li>
     <button onclick="addMember()">add</button>
 </ul>
-
-
 <script type="text/javascript">
     function changeGroupName() {
         let groupName = document.getElementById("groupName").value;

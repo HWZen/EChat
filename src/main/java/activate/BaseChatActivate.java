@@ -69,6 +69,7 @@ public class BaseChatActivate extends HttpServlet {
 
         ChatSession selectChatSession = null;
         List<Msg> msgs = null;
+        System.out.println(chatSessionList.size());
         if(chatSessionList.size() > 0){
             selectChatSession = chatSessionList.get(0);
             msgs = CommandManager.getSessionMsg(browser_uid, selectChatSession.getId());

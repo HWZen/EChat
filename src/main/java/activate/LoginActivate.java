@@ -56,6 +56,7 @@ public class LoginActivate extends HttpServlet {
             if(c.getName().equals("JSESSIONID"))
                 JSESSIONID = c.getValue();
         }
+        System.out.println(JSESSIONID);
         if(browser_uid == null) {
             browser_uid = JSESSIONID;
             Cookie uid_cookie = new Cookie("browser_uid", browser_uid);

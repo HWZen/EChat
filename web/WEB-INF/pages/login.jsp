@@ -17,7 +17,7 @@
         <div class="login_framework">
             <form id="log_reg_form" method="post" name="loginForm" action="/EChat_Web_exploded/login.jhtml">
                 <div class="content2">
-                    <div id="contents" class="contents">${message}</div>
+                    <div id="contents" class="contents">${loginMessage}</div>
                     <ul>
                         <li><input id="tid" name="name" type="text" class="text"
                                    value="您的邮箱账号/手机号" /><br /></li>

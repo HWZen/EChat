@@ -25,11 +25,19 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>Message</servlet-name>
-        <servlet-class>activate.BaseChatActivate</servlet-class>
+        <servlet-class>activate.MessageActivate</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Message</servlet-name>
         <url-pattern>/message.jhtml</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>UserContent</servlet-name>
+        <servlet-class>activate.UserActivate</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserContent</servlet-name>
+        <url-pattern>/userContent.jhtml</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>Register</servlet-name>

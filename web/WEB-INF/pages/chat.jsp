@@ -1,12 +1,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
-<%@page import="entity.Msg"%>
-<%@page import="java.util.List"%>
-<%@page import="java.util.ArrayList"%>
+<%@page import="entity.ChatSession"%>
+<%--<%@page import="java.util.List"%>--%>
+<%--<%@page import="java.util.ArrayList"%>--%>
 
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+    <script type="text/javascript" src="js/header.js"></script>
     <script type="text/javascript" src="script/jquery-1.7.2.min.js"></script>
     <meta http-equiv="Content-Type" con tent="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -28,17 +29,33 @@
                 window.location.replace('https://message.bilibili.com/h5/app/auto-reply#/')
             }
         } catch (e) {
-            //
-        }
-    </script>
-    <script>
-        function topicSwitch(s) {
-            window.location="message.jhtml?topicName="+s+"&topicName=";
         }
     </script>
     <link href="./css/index.9e59bdf8.css" rel="stylesheet">
 </head>
 <body>
+<div id="internationalHeader" class="international-header report-wrap-module">
+    <div class="mini-header m-header mini-type">
+        <div class="mini-header__content mini-header--login">
+            <div class="nav-link">
+                <ul class="nav-link-ul mini">
+                    <li class="nav-link-item">
+                        <button onclick="gotoChat()">聊天</button>
+                    </li>
+                    <li class="nav-link-item">
+                        <button onclick="gotoUserPage()">个人中心</button>
+                    </li>
+                    <li class="nav-link-item">
+                        <button onclick="gotoGroupPage()">群聊管理</button>
+                    </li>
+                    <li class="nav-link-item">
+                        <button onclick="logout()">登出</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
 <div data-v-6969394c class="container">
     <div data-v-1c9150a9 data-v-6969394c id="link-message-container" class>
         <div data-v-1c9150a9 class="container">
@@ -56,11 +73,12 @@
                                     <%int id = -1;%>
                                     <div data-v-9beceada="" class="list-container ps ps--active-y">
                                         <div data-v-9beceada="" class="list">
-                                            <c:forEach items="${TopicList}" var="topic">
-                                                <c:if test="${topic.getSessionName() == topicName}">
-                                                    <div data-v-42a3b689="" data-v-9beceada="" class="list-item active" id="${topic.getSessionName()}" onclick="topicSwitch(this.id)">
+                                            <c:forEach items="${chatSessionList}" var="Session">
+                                                <c:choose>
+                                                <c:when test="${Session.sessionMemberIds[0] eq user.getId()}">
+                                                    <div data-v-42a3b689="" data-v-9beceada="" class="list-item" id="${Session.getSessionMembers()[1].nickname}" onclick="topicSwitch(this.id)">
                                                         <div data-v-42a3b689="" class="name-box">
-                                                            <div data-v-42a3b689="" class="name" title="topic-name">${topic.getSessionName()}</div>
+                                                            <div data-v-42a3b689="" class="name" title="topic-name">${Session.getSessionMembers()[1].nickname}</div>
                                                             <div data-v-42a3b689="" title="" class="last-word"></div>
                                                         </div>
                                                         <div data-v-42a3b689="" class="close">
@@ -70,11 +88,11 @@
                                                         </div>
                                                         <!---->
                                                     </div>
-                                                </c:if>
-                                                <c:if test="${topic.getSessionName() != topicName}">
-                                                    <div data-v-42a3b689="" data-v-9beceada="" class="list-item" id="${topic.getSessionName()}" onclick="topicSwitch(this.id)">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <div data-v-42a3b689="" data-v-9beceada="" class="list-item" id="${Session.getSessionMembers()[0].nickname}" onclick="topicSwitch(this.id)">
                                                         <div data-v-42a3b689="" class="name-box">
-                                                            <div data-v-42a3b689="" class="name" title="topic-name">${topic.getSessionName()}</div>
+                                                            <div data-v-42a3b689="" class="name" title="topic-name">${Session.getSessionMembers()[0].nickname}</div>
                                                             <div data-v-42a3b689="" title="" class="last-word"></div>
                                                         </div>
                                                         <div data-v-42a3b689="" class="close">
@@ -84,7 +102,8 @@
                                                         </div>
                                                         <!---->
                                                     </div>
-                                                </c:if>
+                                                </c:otherwise>
+                                                </c:choose>
                                             </c:forEach>
                                         </div>
                                     </div>
@@ -95,40 +114,27 @@
                                         <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 85px;"></div>
                                     </div>
                                 </div>
-                                <!---->
-                                <!---->
                                 <div data-v-9beceada="" class="right">
-                                    <!---->
                                     <div data-v-10e42db0="" data-v-9beceada="" class="dialog" style="">
                                         <div data-v-b2e907f6="" data-v-10e42db0="" class="message-list">
-                                            <div data-v-b2e907f6="" class="message-list-content">
-                                                <div data-v-0f4fd40a="" data-v-b2e907f6="" class="msg-more"><span data-v-0f4fd40a="" class="load-more"
-                                                                                                                  style="display: none;"><span data-v-0f4fd40a="" class="icon"></span>查看和他的历史私信消息</span><span
-                                                        data-v-0f4fd40a="" class="no-more" style="">没有更多消息了～</span><span data-v-0f4fd40a=""
-                                                                                                                         class="loading" style="display: none;">
-                                                            <div data-v-0f4fd40a="" class="lds-spinner">
-                                                                <div></div>
-                                                                <div></div>
-                                                                <div></div>
-                                                                <div></div>
-                                                                <div></div>
-                                                                <div></div>
-                                                                <div></div>
-                                                                <div></div>
-                                                                <div></div>
-                                                                <div></div>
-                                                                <div></div>
-                                                                <div></div>
-                                                            </div>
-                                                        </span><span data-v-0f4fd40a="" class="error" style="display: none;">消息加载失败，<span data-v-0f4fd40a=""
-                                                                                                                                          class="btn">点击重新加载</span></span>
-                                                </div>
+                                            <div data-v-b2e907f6="" class="message-list-content" id="message">
                                                 <c:forEach items = "${messages}" var="msg">
                                                     <div data-v-82bd82b8="" data-v-b2e907f6="" class="msg-time"><span data-v-318cad34="" data-v-82bd82b8=""
                                                                                                                       class="time">${msg.sendTime}</span></div>
-                                                    <c:if test="${msg.getFromUserId() != msg.getToSessionId()}">
+                                                    <c:choose>
+                                                    <c:when test="${msg.fromUserId eq user.getId()}">
+                                                        <div data-v-d5403732="" data-v-b2e907f6="" class="msg-item is-me">
+                                                            <a data-v-d5403732="" title="${msg.getFromUserId()}" target="_blank" class="avatar"></a>
+                                                            <div data-v-d5403732="" class="message">
+                                                                <div data-v-d5403732="" data-key="7083505303328669265" class="message-content is-me not-img">
+                                                                        ${msg.content}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </c:when>
+                                                    <c:otherwise>
                                                         <div data-v-d5403732="" data-v-b2e907f6="" class="msg-item not-me"><a data-v-d5403732=""
-                                                                                                                              href="" title="${msg.getFromUserId()}" target="_blank" class="avatar"
+                                                                                                                              href="" title="${msg.fromUserId}" target="_blank" class="avatar"
                                                                                                                               style="background-image: url(&quot;https://i0.hdslb.com/bfs/face/45e709f0b719faf7c2eefeb4068700c18951e194.jpg@30w_30h_1c.webp&quot;);"></a>
                                                             <div data-v-d5403732="" class="message">
                                                                 <div data-v-d5403732="" data-key="6674637179562596354" class="message-content not-img">
@@ -136,21 +142,8 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </c:if>
-                                                    <c:if test="${msg.getFromUserId() == msg.getToSessionId()}">
-                                                        <div data-v-d5403732="" data-v-b2e907f6="" class="msg-item is-me">
-                                                            <a data-v-d5403732="" href="//space.bilibili.com/277370943" title="${msg.getFromUserId()}" target="_blank" class="avatar" style="background-image: url(&quot;https://i0.hdslb.com/bfs/face/32950f1fd55ccf45fbd29813ddbb9fc56f7301c4.jpg@30w_30h_1c.webp&quot;);"></a>
-                                                            <div data-v-d5403732="" class="message">
-                                                                <div data-v-d5403732="" data-key="7083505303328669265" class="message-content is-me not-img">
-                                                                        ${msg.content}
-                                                                </div>
-                                                                <!---->
-                                                                <!---->
-                                                                <!---->
-                                                                <!---->
-                                                            </div>
-                                                        </div>
-                                                    </c:if>
+                                                    </c:otherwise>
+                                                    </c:choose>
                                                 </c:forEach>
                                                 <div data-v-b2e907f6="" class="msg-push-new" talkerid="321173469" style="display: none;"><a
                                                         href="https://message.bilibili.com/" target="_blank" class="ar-recommend-item"><img
@@ -173,12 +166,6 @@
                                                 <!---->
                                             </div>
                                         </div>
-                                        <%--                                            <%int new_msg_num = (Integer)request.getAttribute("new_msgs");%>--%>
-                                        <%--                                            <%if(new_msg_num != 0) {%>--%>
-                                        <%--                                                <div data-v-10e42db0="" class="new-message-tip" style=""> <!--style="display:none;"-->--%>
-                                        <%--                                                    <div data-v-10e42db0="" class="text">您有 8 条新消息</div>--%>
-                                        <%--                                                </div>--%>
-                                        <%--                                            <%}%>--%>
                                         <div data-v-7762b962="" data-v-10e42db0="" class="send-box">
                                             <div data-v-7762b962="" class="row">
                                                 <div data-v-7762b962="" class="space-margin"><label data-v-7762b962="" class="image-upload-btn"></label>
@@ -187,16 +174,16 @@
                                                                                                         class="emotion-btn-box"></button>
                                                 </div>
                                             </div>
-                                            <form name="message box" action="/EChat_Web_exploded/login.jhtml">
                                                 <div data-v-715777d4="" data-v-7762b962="" placeholder="回复一下吧～" class="input-box">
-                                                    <div data-v-715777d4="" id="editor" class="core-style" style="height: 60px;"><input type="text" name="send"/></div>
+                                                    <div data-v-715777d4="" id="editor" class="core-style" style="height: 60px;"><input type="text" name="send" id="message_content"/></div>
                                                 </div>
                                                 <div data-v-7762b962="" class="row right">
                                                     <button data-v-6cbfef24="" data-v-7762b962=""
-                                                            class="btn-box send-btn active" title="enter 发送
-                                                                            shift + enter 换行" name="send">发送</button>
+                                                            class="btn-box send-btn active"
+                                                            title="enter 发送 shift + enter 换行"
+                                                            onclick="sendMessage()"
+                                                            name="send">发送</button>
                                                 </div>
-                                            </form>
                                         </div>
                                         <div data-v-7b5a0399="" data-v-10e42db0="">
                                             <div data-v-2d7a5bff="" data-v-7b5a0399="" class="im-popup confirm-popup" style="display: none;">
@@ -236,6 +223,125 @@
         </div>
     </div>
 </div>
+<script>
+    function getCookie(cname)
+    {
+        const name = cname + "=";
+        const ca = document.cookie.split(';');
+        for(let i=0; i<ca.length; i++)
+        {
+            const c = ca[i].trim();
+            if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+        }
+        return "";
+    }
+    //判断当前浏览器是否支持WebSocket
+    let websocket;
+    if('WebSocket' in window){
+        const hostname = window.document.domain;
+        websocket = new WebSocket("ws://"+hostname+":8080/EChat_Web_exploded/chat/"+getCookie("browser_uid"));
+        setMessageInnerHTML("Connect success");
+        console.log("link success")
+
+        //连接发生错误的回调方法
+        websocket.onerror = function(){
+            setMessageInnerHTML("error");
+        };
+
+        //连接成功建立的回调方法
+        websocket.onopen = function(event){
+            setMessageInnerHTML("open");
+        }
+        console.log("-----")
+        //接收到消息的回调方法
+        websocket.onmessage = function(event){
+            setMessageInnerHTML(event.data);
+        }
+
+        //连接关闭的回调方法
+        websocket.onclose = function(){
+            setMessageInnerHTML("close");
+        }
+
+        //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+        window.onbeforeunload = function(){
+            websocket.close();
+        }
+    }else{
+        setMessageInnerHTML("当前浏览器不支持websocket");
+        alert('Not support websocket')
+    }
+
+    function connect2server(){
+
+    }
+
+    //关闭连接
+    function closeWebSocket(){
+        websocket.close();
+    }
+
+    function showMessage() {
+        var word = document.getElementById('message_content').value;
+        var time = new Date();
+        var time_content = '<div data-v-82bd82b8="" data-v-b2e907f6="" class="msg-time"><span data-v-318cad34="" data-v-82bd82b8=""class="time">'
+                            +time.getFullYear()+"-"+time.getMonth()+"-"+time.getDay()+' '+time.getHours()+':'+time.getMinutes()+'</span></div>';
+        var word_content = '<div data-v-d5403732="" data-v-b2e907f6="" class="msg-item is-me">'+
+                      '<a data-v-d5403732="" title='+"${user.id}"+'target="_blank" class="avatar"></a>'+
+                      '<div data-v-d5403732="" class="message">'+
+                      '<div data-v-d5403732="" data-key="7083505303328669265" class="message-content is-me not-img">'+word+'</div>'+
+                      '</div></div>';
+        document.getElementById('message').innerHTML+= time_content+word_content;
+    }
+
+    function topicSwitch(s) {
+        window.location = "message.jhtml?topicName=" + s ;//+ "&topicName=";
+    }
+
+    function sendMessage(){
+        var msg = document.getElementById('message_content').value;
+        var bag = "{\"from\":\"${user.id}\",\"to\":\"${activeSession.id}\",\"message\":\""+msg+"\"}";
+        websocket.send(bag);
+        showMessage();
+    }
+
+    function logout(){
+        let form = document.createElement("form");
+        form.action = "message.jhtml?requireType=logout";
+        form.method = "post";
+        document.body.appendChild(form);
+        form.submit();
+        document.body.removeChild(form);
+    }
+
+    function gotoChat() {
+        let form = document.createElement("form");
+        form.action = "message.jhtml?requireType=init";
+        form.method = "post";
+        document.body.appendChild(form);
+        form.submit();
+        document.body.removeChild(form);
+    }
+
+    function gotoUserPage() {
+        let form = document.createElement("form");
+        form.action = "userContent.jhtml?requireType=init";
+        form.method = "post";
+        document.body.appendChild(form);
+        form.submit();
+        document.body.removeChild(form);
+    }
+
+    function gotoGroupPage() {
+        let form = document.createElement("form");
+        form.action = "groupSetting.jhtml?requireType=init";
+        form.method = "post";
+        document.body.appendChild(form);
+        form.submit();
+        document.body.removeChild(form);
+    }
+
+</script>
 </body>
 </div>
 </html>

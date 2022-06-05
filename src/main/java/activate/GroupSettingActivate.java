@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GroupSettingActivate extends HttpServlet {
@@ -26,12 +27,24 @@ public class GroupSettingActivate extends HttpServlet {
             String requireType = req.getParameter("requireType");
             if(requireType == null || requireType.equals("init"))
                 init(req, resp);
+            else if(requireType.equals("pick")) {
+                String reqID = req.getParameter("requireID");
+                if(reqID.equals("createNewGroup")){
+                    req.setAttribute("action","create");
+                    init(req,resp);
+                }
+                else {
+                    getGroupData(req, resp);
+                }
+            }
             else if(requireType.equals("changeGroupName"))
                 changeGroupName(req, resp);
             else if(requireType.equals("deleteMember"))
                 deleteMember(req, resp);
             else if (requireType.equals("addMember"))
                 addMember(req, resp);
+            else if(requireType.equals("createGroup"))
+                createGroup(req, resp);
             else
                 throw new RuntimeException("unknown requireType: " + requireType);
         }
@@ -48,16 +61,15 @@ public class GroupSettingActivate extends HttpServlet {
             resp.sendRedirect("/ECChat_Web_exploded");
             return;
         }
-        String groupId = req.getParameter("groupId");
-        ChatSession chatSession = CommandManager.getChatSession(broswer_uid, groupId);
+        List<ChatSession> chatSessions = CommandManager.getChatSessions(broswer_uid);
         req.setAttribute("user", user);
-        req.setAttribute("chatSession", chatSession);
-        req.getRequestDispatcher("/WEB-INF/pages/groupSetting.jsp").forward(req, resp);
+        req.setAttribute("chatSessions", chatSessions);
+        req.getRequestDispatcher("/WEB-INF/pages/group.jsp").forward(req, resp);
     }
 
     protected  void changeGroupName(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException, ServletException {
         String groupid = req.getParameter("groupId");
-        String newName = req.getParameter("name");
+        String newName = req.getParameter("newName");
         assert newName != null;
         assert groupid != null;
         String browser_uid = req.getParameter("browser_uid");
@@ -71,6 +83,19 @@ public class GroupSettingActivate extends HttpServlet {
         assert group != null;
         CommandManager.updateGroupName(browser_uid, groupid, newName);
         init(req, resp);
+    }
+
+    protected void createGroup(HttpServletRequest req, HttpServletResponse resp) throws ServletException, SQLException, IOException {
+        System.out.println("activated createGroup");
+        String groupName = req.getParameter("createGroupName");
+        assert groupName != null;
+        String browser_uid = req.getParameter("browser_uid");
+        browser_uid = CommandManager.getAndCheckCookie(req, browser_uid);
+        User user = CommandManager.getUser(browser_uid);
+        List<String> userIds = new ArrayList<String>();
+        userIds.add(user.getId());
+        CommandManager.createGroup(browser_uid,groupName,userIds,null);
+        init(req,resp);
     }
 
     protected  void deleteMember(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException, ServletException {
@@ -120,5 +145,21 @@ public class GroupSettingActivate extends HttpServlet {
             System.out.println("add member success");
 
         init(req, resp);
+    }
+
+    public void getGroupData(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException, ServletException {
+        String groupID = req.getParameter("requireID");
+        String broswer_uid = req.getParameter("browser_uid");
+        broswer_uid = CommandManager.getAndCheckCookie(req, broswer_uid);
+        User user = CommandManager.getUser(broswer_uid);
+        if(user == null){
+            resp.sendRedirect("/EChat_Web_exploded");
+            return;
+        }
+        ChatSession group = CommandManager.getChatSession(broswer_uid, groupID);
+        System.out.println(group.getSessionName());
+        req.setAttribute("action", "showgroup");
+        req.setAttribute("groupChat", group);
+        init(req,resp);
     }
 }
