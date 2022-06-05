@@ -143,7 +143,6 @@ public class GroupSettingActivate extends HttpServlet {
         groupUsers.add(memberId);
         if(CommandManager.updateGroupMember(browser_uid, groupId, groupUsers))
             System.out.println("add member success");
-
         init(req, resp);
     }
 

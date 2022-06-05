@@ -32,8 +32,6 @@ public class PersonalSettingActivate extends HttpServlet {
                 changePasswd(req, resp);
             else if (requireType.equals("addFriend"))
                 addFriend(req, resp);
-            else if (requireType.equals("createGroup"))
-                CreateGroup(req, resp);
             else
                 throw new RuntimeException("unknown requireType: " + requireType);
         } catch (SQLException e) {
@@ -95,7 +93,7 @@ public class PersonalSettingActivate extends HttpServlet {
             return;
         }
         if(!user.getPassword().equals(oldPasswd)){
-            System.out.println("old passwd error");
+            System.out.println("old passwd error"+user.getPassword()+" "+oldPasswd);
             init(req, resp);
         }
 
@@ -105,7 +103,7 @@ public class PersonalSettingActivate extends HttpServlet {
     }
 
     public void addFriend(HttpServletRequest req, HttpServletResponse resp){
-        System.out.println("add");
+        System.out.println("add friend");
         try {
             String friend_uid = req.getParameter("friendId");
             String browser_uid = req.getParameter("browser_uid");

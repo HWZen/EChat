@@ -75,34 +75,49 @@
                                         <div data-v-9beceada="" class="list">
                                             <c:forEach items="${chatSessionList}" var="Session">
                                                 <c:choose>
-                                                <c:when test="${Session.sessionMemberIds[0] eq user.getId()}">
-                                                    <div data-v-42a3b689="" data-v-9beceada="" class="list-item" id="${Session.getSessionMembers()[1].nickname}" onclick="topicSwitch(this.id)">
-                                                        <div data-v-42a3b689="" class="name-box">
-                                                            <div data-v-42a3b689="" class="name" title="topic-name">${Session.getSessionMembers()[1].nickname}</div>
-                                                            <div data-v-42a3b689="" title="" class="last-word"></div>
+                                                    <c:when test="${Session.ownerId ne 'admin'}">
+                                                        <div data-v-42a3b689="" data-v-9beceada="" class="list-item" id="${Session.getId()}" onclick="getSessionData(this.id)">
+                                                            <div data-v-42a3b689="" class="name-box">
+                                                                <div data-v-42a3b689="" class="name" title="topic-name">${Session.getSessionName()}</div>
+                                                                <div data-v-42a3b689="" title="" class="last-word"></div>
+                                                            </div>
+                                                            <div data-v-42a3b689="" class="close">
+                                                                <svg data-v-42a3b689="" viewBox="0 0 40 40" class="css-1dtzbno">
+                                                                    <path d="M22.83,20,38.42,4.41a2,2,0,1,0-2.83-2.83h0L20,17.17,4.41,1.58A2,2,0,0,0,1.58,4.41L17.17,20,1.58,35.59a2,2,0,0,0,2.83,2.83L20,22.83,35.59,38.42a2,2,0,1,0,2.83-2.83Z"></path>
+                                                                </svg>
+                                                            </div>
                                                         </div>
-                                                        <div data-v-42a3b689="" class="close">
-                                                            <svg data-v-42a3b689="" viewBox="0 0 40 40" class="css-1dtzbno">
-                                                                <path d="M22.83,20,38.42,4.41a2,2,0,1,0-2.83-2.83h0L20,17.17,4.41,1.58A2,2,0,0,0,1.58,4.41L17.17,20,1.58,35.59a2,2,0,0,0,2.83,2.83L20,22.83,35.59,38.42a2,2,0,1,0,2.83-2.83Z"></path>
-                                                            </svg>
-                                                        </div>
-                                                        <!---->
-                                                    </div>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <div data-v-42a3b689="" data-v-9beceada="" class="list-item" id="${Session.getSessionMembers()[0].nickname}" onclick="topicSwitch(this.id)">
-                                                        <div data-v-42a3b689="" class="name-box">
-                                                            <div data-v-42a3b689="" class="name" title="topic-name">${Session.getSessionMembers()[0].nickname}</div>
-                                                            <div data-v-42a3b689="" title="" class="last-word"></div>
-                                                        </div>
-                                                        <div data-v-42a3b689="" class="close">
-                                                            <svg data-v-42a3b689="" viewBox="0 0 40 40" class="css-1dtzbno">
-                                                                <path d="M22.83,20,38.42,4.41a2,2,0,1,0-2.83-2.83h0L20,17.17,4.41,1.58A2,2,0,0,0,1.58,4.41L17.17,20,1.58,35.59a2,2,0,0,0,2.83,2.83L20,22.83,35.59,38.42a2,2,0,1,0,2.83-2.83Z"></path>
-                                                            </svg>
-                                                        </div>
-                                                        <!---->
-                                                    </div>
-                                                </c:otherwise>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <c:choose>
+                                                            <c:when test="${Session.sessionMemberIds[0] eq user.getId()}">
+                                                                <div data-v-42a3b689="" data-v-9beceada="" class="list-item" id="${Session.getId()}" onclick="getSessionData(this.id)">
+                                                                    <div data-v-42a3b689="" class="name-box">
+                                                                        <div data-v-42a3b689="" class="name" title="topic-name">${Session.getSessionMembers()[1].nickname}</div>
+                                                                        <div data-v-42a3b689="" title="" class="last-word"></div>
+                                                                    </div>
+                                                                    <div data-v-42a3b689="" class="close">
+                                                                        <svg data-v-42a3b689="" viewBox="0 0 40 40" class="css-1dtzbno">
+                                                                            <path d="M22.83,20,38.42,4.41a2,2,0,1,0-2.83-2.83h0L20,17.17,4.41,1.58A2,2,0,0,0,1.58,4.41L17.17,20,1.58,35.59a2,2,0,0,0,2.83,2.83L20,22.83,35.59,38.42a2,2,0,1,0,2.83-2.83Z"></path>
+                                                                        </svg>
+                                                                    </div>
+                                                                </div>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <div data-v-42a3b689="" data-v-9beceada="" class="list-item" id="${Session.getId()}" onclick="topicSwitch(this.id)">
+                                                                    <div data-v-42a3b689="" class="name-box">
+                                                                        <div data-v-42a3b689="" class="name" title="topic-name">${Session.getSessionMembers()[0].nickname}</div>
+                                                                        <div data-v-42a3b689="" title="" class="last-word"></div>
+                                                                    </div>
+                                                                    <div data-v-42a3b689="" class="close">
+                                                                        <svg data-v-42a3b689="" viewBox="0 0 40 40" class="css-1dtzbno">
+                                                                            <path d="M22.83,20,38.42,4.41a2,2,0,1,0-2.83-2.83h0L20,17.17,4.41,1.58A2,2,0,0,0,1.58,4.41L17.17,20,1.58,35.59a2,2,0,0,0,2.83,2.83L20,22.83,35.59,38.42a2,2,0,1,0,2.83-2.83Z"></path>
+                                                                        </svg>
+                                                                    </div>
+                                                                </div>
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </c:otherwise>
                                                 </c:choose>
                                             </c:forEach>
                                         </div>
@@ -294,15 +309,20 @@
         document.getElementById('message').innerHTML+= time_content+word_content;
     }
 
-    function topicSwitch(s) {
-        window.location = "message.jhtml?topicName=" + s ;//+ "&topicName=";
-    }
-
     function sendMessage(){
         var msg = document.getElementById('message_content').value;
         var bag = "{\"from\":\"${user.id}\",\"to\":\"${activeSession.id}\",\"message\":\""+msg+"\"}";
         websocket.send(bag);
         showMessage();
+    }
+
+    function getSessionData(s) {
+        let form = document.createElement("form");
+        form.action = "message.jhtml?requireType=getChatSessionMsg&sessionId="+s;
+        form.method = "post";
+        document.body.appendChild(form);
+        form.submit();
+        document.body.removeChild(form);
     }
 
     function logout(){

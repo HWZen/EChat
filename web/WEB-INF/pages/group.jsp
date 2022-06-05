@@ -111,9 +111,13 @@
                 <span data-v-91ce59ac="" class="security-nav-name" id="createNewGroup" onclick=pick(this.id)>创建群聊</span>
             </li>
             <c:forEach items="${chatSessions}" var="group">
-                <li data-v-91ce59ac="" class="security-list">
-                    <span data-v-91ce59ac="" class="security-nav-name" id="${group.id}" onclick=pick(this.id)>${group.sessionName}</span>
-                </li>
+                <c:choose>
+                    <c:when test="${group.ownerId ne 'admin'}">
+                        <li data-v-91ce59ac="" class="security-list">
+                            <span data-v-91ce59ac="" class="security-nav-name" id="${group.id}" onclick=pick(this.id)>${group.sessionName}</span>
+                        </li>
+                    </c:when>
+                </c:choose>
             </c:forEach>
         </ul>
     </div>
@@ -185,14 +189,14 @@
                     </c:choose>
                     <c:forEach items="${groupChat.getSessionMembers()}" var="member">
                         <li>${member.nickname}</li>
-                        <c:if test="$${user.getId() eq groupChat.getOwnerId()}">
+                        <c:if test="${user.getId() eq groupChat.getOwnerId()}">
                             <c:if test="${member.getId() ne user.getId()}">
                                 <button onclick="delMember('${member.getId()}')">删除成员</button>
                             </c:if>
                         </c:if>
                     </c:forEach>
                 </div>
-                <c:if test="$${user.getId() eq groupChat.getOwnerId()}">
+                <c:if test="${user.getId() eq groupChat.getOwnerId()}">
                 <div class="el-form-item user-nick-name">
                     <div class="el-form-item__content">
                         <label class="el-form-item__label">添加群成员:</label>
@@ -288,7 +292,7 @@
         let newMemberId = document.getElementById("newMemberId").value;
         let form = document.createElement("form");
         form.method = "post";
-        form.action = "groupSetting.jhtml?requireType=addMember&groupId=${chatSession.getId()}&memberId="+newMemberId;
+        form.action = "groupSetting.jhtml?requireType=addMember&groupId=${groupChat.getId()}&memberId="+newMemberId;
         document.body.appendChild(form);
         form.submit();
         document.body.removeChild(form);
@@ -297,7 +301,7 @@
     function delMember(userId) {
         let form = document.createElement("form");
         form.method = "post";
-        form.action = "groupSetting.jhtml?requireType=deleteMember&groupId=${chatSession.getId()}&memberId=" + userId;
+        form.action = "groupSetting.jhtml?requireType=deleteMember&groupId=${groupChat.getId()}&memberId=" + userId;
         document.body.appendChild(form);
         form.submit();
         document.body.removeChild(form);

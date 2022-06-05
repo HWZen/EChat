@@ -127,6 +127,10 @@ public class MessageActivate extends HttpServlet {
         }
         List<ChatSession> chatSessionList = CommandManager.getChatSessions(browser_uid);
 
+        for(ChatSession i : chatSessionList) {
+            System.out.println("name: "+i.getSessionName());
+        }
+
         req.setAttribute("user", user);
         req.setAttribute("chatSessionList", chatSessionList);
         req.setAttribute("noActiveSession", Boolean.FALSE);

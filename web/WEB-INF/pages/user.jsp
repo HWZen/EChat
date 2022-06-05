@@ -113,6 +113,9 @@
             <li data-v-91ce59ac="" class="security-list">
                 <span data-v-91ce59ac="" class="security-nav-name" id="changePasswd" onclick="pick(this.id)">修改密码</span>
             </li>
+            <li data-v-91ce59ac="" class="security-list">
+                <span data-v-91ce59ac="" class="security-nav-name" id="addFriend" onclick="pick(this.id)">添加好友</span>
+            </li>
         </ul>
     </div>
     <div class="security-right">
@@ -128,7 +131,7 @@
                     <label class="el-form-item__label">修改用户名:</label>
                     <div class="el-form-item__content">
                         <div class="el-input">
-                            <input name="nick-name" id = "newName" placeholder="${user.getNickname()}" type="text" rows="2" maxlength="16" class="el-input__inner">
+                            <input name="nick-name" id="newName" placeholder="${user.getNickname()}" type="text" rows="2" maxlength="16" class="el-input__inner">
                         </div>
                     </div>
                 </div>
@@ -156,10 +159,10 @@
                         <label class="el-form-item__label">修改密码：</label>
                         <div class="el-form-item__content">
                             <div class="el-textarea">
-                                <input name="old-pass-word" placeholder="旧密码" type="text" rows="2" maxlength="16" class="el-input__inner">
+                                <input id="old-pass-word" placeholder="旧密码" type="text" rows="2" maxlength="16" class="el-input__inner">
                             </div>
                             <div class="el-textarea">
-                                <input name="new-pass-word" placeholder="新的密码" type="text" rows="2" maxlength="16" class="el-input__inner">
+                                <input id="new-pass-word" placeholder="新的密码" type="text" rows="2" maxlength="16" class="el-input__inner">
                             </div>
                         </div>
                     </div>
@@ -169,6 +172,34 @@
                             <div class="user-my-btn-warp">
                                 <button type="button" class="el-button el-button--primary" onclick="ChangePwd()">
                                     <span>保存</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </c:if>
+        <c:if test="${selected eq 'addFriend'}">
+            <div data-v-d88496a2="" class="security-right-title">
+                <span data-v-d88496a2="" class="security-right-title-icon"></span>
+                <span data-v-d88496a2="" class="security-right-title-text">添加好友</span>
+            </div>
+            <div class="user-setting-warp">
+                <div>
+                    <div class="el-form-item user-my-sign">
+                        <label class="el-form-item__label">好友ID：</label>
+                        <div class="el-form-item__content">
+                            <div class="el-textarea">
+                                <input id="friendID" placeholder="输入好友ID" type="text" rows="2" maxlength="16" class="el-input__inner">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="el-form-item user-my-btn">
+                        <div class="el-form-item__content">
+                            <div class="padding-dom"></div>
+                            <div class="user-my-btn-warp">
+                                <button type="button" class="el-button el-button--primary" onclick="addFriend()">
+                                    <span>添加</span>
                                 </button>
                             </div>
                         </div>
@@ -189,10 +220,10 @@
     }
 
     function ChangePwd(){
-        let oldpwd = document.getElementById("old-pass-word");
-        let newpwd = document.getElementById("new-pass-word");
+        let oldpwd = document.getElementById("old-pass-word").value;
+        let newpwd = document.getElementById("new-pass-word").value;
         let form = document.createElement("form");
-        form.action = "personalSetting.jhtml?requireType=changePasswd&old="+oldpwd+"&new="+newpwd;
+        form.action = "personalSetting.jhtml?requireType=changePasswd&opwd="+oldpwd+"&npwd="+newpwd;
         form.method = "post";
         document.body.appendChild(form);
         form.submit();
@@ -200,23 +231,25 @@
     }
 
     function ChangeName() {
-        let newName = document.getElementById("newName");
+        let newName = document.getElementById("newName").value;
         let form = document.createElement("form");
-        form.action = "personalSetting.jhtml?requireType=changePasswd&name"+newName;
+        form.action = "personalSetting.jhtml?requireType=changeName&name="+newName;
         form.method = "post";
         document.body.appendChild(form);
         form.submit();
         document.body.removeChild(form);
     }
 
-    function GroupChat() {
+    function addFriend() {
+        let friendID = document.getElementById("friendID").value;
         let form = document.createElement("form");
-        form.action = "personalSetting.jhtml?requireType=changePasswd"+newName;
+        form.action = "personalSetting.jhtml?requireType=addFriend&friendId="+friendID;
         form.method = "post";
         document.body.appendChild(form);
         form.submit();
         document.body.removeChild(form);
     }
+
     function logout(){
         let form = document.createElement("form");
         form.action = "message.jhtml?requireType=logout";
