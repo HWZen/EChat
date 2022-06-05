@@ -237,7 +237,11 @@
         </div>
     </div>
 </div>
-<script>
+<script type="text/javascript">
+    function setMessageInnerHTML(message) {
+        console.log(message);
+    }
+
     function getCookie(cname)
     {
         const name = cname + "=";
@@ -269,6 +273,7 @@
         console.log("-----")
         //接收到消息的回调方法
         websocket.onmessage = function(event){
+            console.log("receive message");
             let bag = event.data;
             let msg = JSON.parse(bag);
             if(msg["to"] != '${activeSession.id}') {
