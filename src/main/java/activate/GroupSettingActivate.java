@@ -45,6 +45,8 @@ public class GroupSettingActivate extends HttpServlet {
                 addMember(req, resp);
             else if(requireType.equals("createGroup"))
                 createGroup(req, resp);
+            else if(requireType.equals("deleteGroup"))
+                deleteGroup(req, resp);
             else
                 throw new RuntimeException("unknown requireType: " + requireType);
         }
@@ -133,7 +135,6 @@ public class GroupSettingActivate extends HttpServlet {
             resp.sendRedirect("/EChat_Web_exploded");;
             return;
         }
-
         ChatSession groupSession = CommandManager.getChatSession(browser_uid, groupId);
         if(groupSession == null){
             resp.sendRedirect("");
@@ -159,6 +160,20 @@ public class GroupSettingActivate extends HttpServlet {
         System.out.println(group.getSessionName());
         req.setAttribute("action", "showgroup");
         req.setAttribute("groupChat", group);
+        init(req,resp);
+    }
+
+    public void deleteGroup(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException, ServletException {
+        String groupID = req.getParameter("groupId");
+        String broswer_uid = req.getParameter("browser_uid");
+        broswer_uid = CommandManager.getAndCheckCookie(req, broswer_uid);
+        User user = CommandManager.getUser(broswer_uid);
+        if(user == null){
+            resp.sendRedirect("/EChat_Web_exploded");
+            return;
+        }
+        ChatSession group = CommandManager.getChatSession(broswer_uid, groupID);
+        CommandManager.deleteGroup(broswer_uid,groupID);
         init(req,resp);
     }
 }

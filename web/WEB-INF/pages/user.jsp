@@ -116,6 +116,9 @@
             <li data-v-91ce59ac="" class="security-list">
                 <span data-v-91ce59ac="" class="security-nav-name" id="addFriend" onclick="pick(this.id)">添加好友</span>
             </li>
+            <li data-v-91ce59ac="" class="security-list">
+                <span data-v-91ce59ac="" class="security-nav-name" id="deleteFriend" onclick="pick(this.id)">删除好友</span>
+            </li>
         </ul>
     </div>
     <div class="security-right">
@@ -207,6 +210,38 @@
                 </div>
             </div>
         </c:if>
+        <c:if test="${selected eq 'deleteFriend'}">
+            <div data-v-d88496a2="" class="security-right-title">
+                <span data-v-d88496a2="" class="security-right-title-icon"></span>
+                <span data-v-d88496a2="" class="security-right-title-text">删除好友</span>
+            </div>
+            <div class="user-setting-warp">
+            <c:forEach items="${chatSessions}" var="Session">
+                <c:choose>
+                    <c:when test="${Session.ownerId eq 'admin'}">
+                        <c:choose>
+                            <c:when test="${Session.sessionMemberIds[0] eq user.getId()}">
+                                <li data-v-91ce59ac="" class="security-list">
+                                    <span data-v-91ce59ac="" class="security-nav-name" id="${Session.getId()}">${Session.getSessionMembers()[1].nickname}</span>
+                                </li>
+                                <li>
+                                    <button id="${Session.getId()}" onclick=deleteFriend(this.id)>删除好友</button>
+                                </li>
+                            </c:when>
+                            <c:otherwise>
+                                <li data-v-91ce59ac="" class="security-list">
+                                    <span data-v-91ce59ac="" class="security-nav-name" id="${Session.getId()}">${Session.getSessionMembers()[0].nickname}</span>
+                                </li>
+                                <li>
+                                    <button id="${Session.getId()}" onclick=deleteFriend(this.id)>删除好友</button>
+                                </li>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:when>
+                </c:choose>
+            </c:forEach>
+            </div>
+        </c:if>
     </div>
 </div>
 <script>
@@ -244,6 +279,15 @@
         let friendID = document.getElementById("friendID").value;
         let form = document.createElement("form");
         form.action = "personalSetting.jhtml?requireType=addFriend&friendId="+friendID;
+        form.method = "post";
+        document.body.appendChild(form);
+        form.submit();
+        document.body.removeChild(form);
+    }
+
+    function deleteFriend(uid) {
+        let form = document.createElement("form");
+        form.action = "personalSetting.jhtml?requireType=deleteFriend&sessionId="+uid;
         form.method = "post";
         document.body.appendChild(form);
         form.submit();

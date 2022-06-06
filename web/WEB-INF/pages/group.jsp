@@ -152,17 +152,8 @@
                             <label class="el-form-item__label">修改群名:</label>
                                 <div class="el-input">
                                     <input name="nick-name" id = "newName" placeholder="${groupChat.sessionName}" type="text" rows="2" maxlength="16" class="el-input__inner">
+                                    <button onclick="changeGroupName()">保存</button>
                                 </div>
-                        </div>
-                    </div>
-                    <div class="el-form-item user-my-btn">
-                        <div class="el-form-item__content">
-                            <div class="padding-dom"></div>
-                            <div class="user-my-btn-warp">
-                                <button type="button" class="el-button el-button--primary" onclick="changeGroupName()">
-                                    <span>保存</span>
-                                </button>
-                            </div>
                         </div>
                     </div>
                 </c:when>
@@ -197,15 +188,25 @@
                     </c:forEach>
                 </div>
                 <c:if test="${user.getId() eq groupChat.getOwnerId()}">
-                <div class="el-form-item user-nick-name">
-                    <div class="el-form-item__content">
-                        <label class="el-form-item__label">添加群成员:</label>
+                    <div class="el-form-item user-nick-name">
+                        <div class="el-form-item__content">
+                            <label class="el-form-item__label">添加群成员:</label>
+                        </div>
+                        <li>
+                            <input type="text" id="newMemberId" placeholder="输入成员ID">
+                            <button onclick="addMember()">添加</button>
+                        </li>
                     </div>
-                    <li>
-                        <input type="text" id="newMemberId" placeholder="输入成员ID">
-                        <button onclick="addMember()">添加</button>
-                    </li>
-                </div>
+                    <div class="el-form-item user-my-btn">
+                        <div class="el-form-item__content">
+                            <div class="padding-dom"></div>
+                            <div class="user-my-btn-warp">
+                                <button type="button" class="el-button el-button--primary" onclick="deleteGroup()">
+                                    <span>删除群聊</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </c:if>
                 </div>
             </div>
@@ -302,6 +303,15 @@
         let form = document.createElement("form");
         form.method = "post";
         form.action = "groupSetting.jhtml?requireType=deleteMember&groupId=${groupChat.getId()}&memberId=" + userId;
+        document.body.appendChild(form);
+        form.submit();
+        document.body.removeChild(form);
+    }
+
+    function deleteGroup() {
+        let form = document.createElement("form");
+        form.method = "post";
+        form.action = "groupSetting.jhtml?requireType=deleteGroup&groupId=${groupChat.getId()}";
         document.body.appendChild(form);
         form.submit();
         document.body.removeChild(form);
