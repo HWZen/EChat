@@ -1,27 +1,26 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class User implements Serializable {
-    private int id;
-    private String username;
+
+    private String userId;
+    private String nickname;
     private String password;
-    private String email;
 
-    public int getId() {
-        return id;
+    public User(String userId, String nickname, String password) {
+        this.userId=userId;
+        this.nickname=nickname;
+        this.password=password;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public String getNickname() {
+        return nickname;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public String getPassword() {
@@ -32,11 +31,24 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
+    public String getId() {
+        return userId;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUserId(String id) {
+        this.userId = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return userId.equals(user.userId) && getNickname().equals(user.getNickname()) && getPassword().equals(user.getPassword());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userId, getNickname(), getPassword());
     }
 }
