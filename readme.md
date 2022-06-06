@@ -1,5 +1,7 @@
 # EChat 聊天系统
+> Java大作业：何文臻，周笑天，周炜昊，施凯飞，罗熙浩
 
+Java大作业：
 本项目是一个基于java servlet, websocket, jsp, mysql的web聊天系统。
 意在为了用户可以在任何可联网的、有浏览器的设备上聊天。
 
