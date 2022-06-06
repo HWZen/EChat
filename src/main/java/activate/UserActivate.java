@@ -43,7 +43,6 @@ public class UserActivate extends HttpServlet {
         }
         User user= CommandManager.getUser(browser_uid);
         if(user == null){
-            System.out.println("no login");
             req.setAttribute("loginMessage","请重新登录");
             resp.sendRedirect("/EChat_Web_exploded");
             return;

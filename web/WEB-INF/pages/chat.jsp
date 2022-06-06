@@ -147,9 +147,8 @@
                                                         </div>
                                                     </c:when>
                                                     <c:otherwise>
-                                                        <div data-v-d5403732="" data-v-b2e907f6="" class="msg-item not-me"><a data-v-d5403732=""
-                                                                                                                              href="" title="${msg.fromUserId}" target="_blank" class="avatar"
-                                                                                                                              style="background-image: url(&quot;https://i0.hdslb.com/bfs/face/45e709f0b719faf7c2eefeb4068700c18951e194.jpg@30w_30h_1c.webp&quot;);"></a>
+                                                        <div data-v-d5403732="" data-v-b2e907f6="" class="msg-item not-me">
+                                                            <a data-v-d5403732="" title="${msg.fromUserId}" target="_blank" class="avatar"></a>
                                                             <div data-v-d5403732="" class="message">
                                                                 <div data-v-d5403732="" data-key="6674637179562596354" class="message-content not-img">
                                                                         ${msg.content}

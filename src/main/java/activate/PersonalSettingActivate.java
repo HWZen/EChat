@@ -32,8 +32,6 @@ public class PersonalSettingActivate extends HttpServlet {
                 changePasswd(req, resp);
             else if (requireType.equals("addFriend"))
                 addFriend(req, resp);
-            else if(requireType.equals("delGroup"))
-                delGroup(req, resp);
             else if(requireType.equals("deleteFriend"))
                 deleteFriend(req, resp);
             else
@@ -46,6 +44,7 @@ public class PersonalSettingActivate extends HttpServlet {
     public void init(HttpServletRequest req, HttpServletResponse resp) throws SQLException, ServletException, IOException {
         System.out.println("init");
         String part = req.getParameter("picked");
+        System.out.println(part);
         String browser_uid = req.getParameter("browser_uid");
         browser_uid = CommandManager.getAndCheckCookie(req, browser_uid);
         User user = CommandManager.getUser(browser_uid);
@@ -55,6 +54,7 @@ public class PersonalSettingActivate extends HttpServlet {
             List<ChatSession> chatSessions = CommandManager.getChatSessions(browser_uid);
             req.setAttribute("user", user);
             req.setAttribute("chatSessions", chatSessions);
+            System.out.println(chatSessions.size());
             req.setAttribute("selected",part);
             req.getRequestDispatcher("/WEB-INF/pages/user.jsp").forward(req, resp);
         }
@@ -126,51 +126,9 @@ public class PersonalSettingActivate extends HttpServlet {
             throw new RuntimeException(e);
         }
     }
-
-    public void CreateGroup(HttpServletRequest req, HttpServletResponse resp){
-        System.out.println("group");
-        try {
-            String groupName = req.getParameter("groupName");
-            String browser_uid = req.getParameter("browser_uid");
-            browser_uid = CommandManager.getAndCheckCookie(req, browser_uid);
-            User user = CommandManager.getUser(browser_uid);
-            if(user == null){
-                System.out.println("user is null");
-                resp.sendRedirect("/EChat_Web_exploded");
-                return;
-            }
-            String groupId = CommandManager.createGroup(browser_uid, groupName, Collections.singletonList(user.getId()),null);
-            assert groupId != null;
-            init(req, resp);
-        }
-        catch (SQLException | IOException | ServletException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public  void delGroup(HttpServletRequest req, HttpServletResponse resp){
-        try {
-            String groupId = req.getParameter("groupId");
-            String browser_uid = req.getParameter("browser_uid");
-            browser_uid = CommandManager.getAndCheckCookie(req, browser_uid);
-            User user = CommandManager.getUser(browser_uid);
-            if(user == null){
-                System.out.println("user is null");
-                resp.sendRedirect("/EChat_Web_exploded");
-                return;
-            }
-            if(!CommandManager.deleteGroup(browser_uid, groupId))
-                System.out.println("delete group failed");
-            init(req, resp);
-        }
-        catch (SQLException | IOException | ServletException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     public void deleteFriend(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException, ServletException {
-
         String friendSessionId = req.getParameter("sessionId");
+        System.out.println(friendSessionId);
         String browser_uid = req.getParameter("browser_uid");
         browser_uid = CommandManager.getAndCheckCookie(req, browser_uid);
         User user = CommandManager.getUser(browser_uid);
