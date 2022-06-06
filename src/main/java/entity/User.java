@@ -1,12 +1,19 @@
 package entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.io.Serializable;
 import java.util.Objects;
 
 public class User implements Serializable {
 
+    @JSONField(name = "userId")
     private String userId;
+
+    @JSONField(name = "nickName")
     private String nickname;
+
+    @JSONField(name = "password")
     private String password;
 
     public User(String userId, String nickname, String password) {

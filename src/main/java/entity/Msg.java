@@ -1,5 +1,6 @@
 package entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import entity.sql.UserInterImpl;
 import entity.sql.ChatSessionInterImpl;
 
@@ -10,9 +11,16 @@ import java.util.Objects;
 
 public class Msg implements Serializable {
 
+    @JSONField(name = "senderId")
     private String fromUserId;
+
+    @JSONField(name = "receiverId")
     private String toSessionId;
+
+    @JSONField(name = "sendTime")
     private Date sendTime;
+
+    @JSONField(name = "content")
     private String content;
 
     @Override

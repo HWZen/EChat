@@ -82,6 +82,16 @@ EChat Demo<br />
 </c:if>
 
 <script type="text/javascript">
+    function getFmtDate() {
+        const date = new Date();
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
+        const hour = date.getHours();
+        const minute = date.getMinutes();
+        const second = date.getSeconds();
+        return year + "年" + month + "月" + day + "日 " + hour + "时" + minute + "分" + second + "秒";
+    }
     function getCookie(cname)
     {
         const name = cname + "=";
@@ -95,7 +105,7 @@ EChat Demo<br />
     }
     //判断当前浏览器是否支持WebSocket
     let websocket;
-    if('WebSocket' in window){
+    if('WebSocket' in window && ${noActiveSession eq false}){
         const hostname = window.document.domain;
         websocket = new WebSocket("ws://"+hostname+":8080/EChat_Web_exploded/chat/"+getCookie("browser_uid"));
         setMessageInnerHTML("Connect success");
@@ -113,7 +123,12 @@ EChat Demo<br />
         console.log("-----")
         //接收到消息的回调方法
         websocket.onmessage = function(event){
-            setMessageInnerHTML(event.data);
+            let msg = JSON.parse(event.data);
+            if(msg['to'] != '${activeSession.id}'){
+                return;
+            }
+            let message = getFmtDate() + "<br/>" + msg['from'] + ":" + msg['message'] + "<br/><br/>";
+            setMessageInnerHTML(message);
         }
 
         //连接关闭的回调方法
@@ -125,9 +140,6 @@ EChat Demo<br />
         window.onbeforeunload = function(){
             websocket.close();
         }
-    }else{
-        setMessageInnerHTML("当前浏览器不支持websocket");
-        alert('Not support websocket')
     }
 
 
@@ -147,9 +159,11 @@ EChat Demo<br />
 
     //发送消息
     function send(){
-        var message = "{\"from\":\"${user.id}\",\"to\":\"${activeSession.id}\",\"message\":\""+document.getElementById('sendMsg').value+"\"}";
+        let message = "{\"from\":\"${user.id}\",\"to\":\"${activeSession.id}\",\"message\":\""+document.getElementById('sendMsg').value+"\"}";
         websocket.send(message);
-        setMessageInnerHTML(message);
+        let jsonMsg = JSON.parse(message);
+        let message2 = getFmtDate() + "<br/>" + jsonMsg['from'] + ":" + jsonMsg['message'] + "<br/><br/>";
+        setMessageInnerHTML(message2);
     }
 
     function selectChatSession(sessionId){

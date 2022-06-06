@@ -32,6 +32,10 @@ public class PersonalSettingActivate extends HttpServlet {
                 changePasswd(req, resp);
             else if (requireType.equals("addFriend"))
                 addFriend(req, resp);
+            else if(requireType.equals("delGroup"))
+                delGroup(req, resp);
+            else if(requireType.equals("deleteFriend"))
+                deleteFriend(req, resp);
             else
                 throw new RuntimeException("unknown requireType: " + requireType);
         } catch (SQLException e) {
@@ -144,4 +148,39 @@ public class PersonalSettingActivate extends HttpServlet {
         }
     }
 
+    public  void delGroup(HttpServletRequest req, HttpServletResponse resp){
+        try {
+            String groupId = req.getParameter("groupId");
+            String browser_uid = req.getParameter("browser_uid");
+            browser_uid = CommandManager.getAndCheckCookie(req, browser_uid);
+            User user = CommandManager.getUser(browser_uid);
+            if(user == null){
+                System.out.println("user is null");
+                resp.sendRedirect("/EChat_Web_exploded");
+                return;
+            }
+            if(!CommandManager.deleteGroup(browser_uid, groupId))
+                System.out.println("delete group failed");
+            init(req, resp);
+        }
+        catch (SQLException | IOException | ServletException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void deleteFriend(HttpServletRequest req, HttpServletResponse resp) throws SQLException, IOException, ServletException {
+
+        String friendSessionId = req.getParameter("sessionId");
+        String browser_uid = req.getParameter("browser_uid");
+        browser_uid = CommandManager.getAndCheckCookie(req, browser_uid);
+        User user = CommandManager.getUser(browser_uid);
+        if(user == null){
+            System.out.println("user is null");
+            resp.sendRedirect("EChat_Web_exploded");
+            return;
+        }
+        if(!CommandManager.deleteFriend(browser_uid, friendSessionId))
+            System.out.println("delete friend failed");
+        init(req, resp);
+    }
 }

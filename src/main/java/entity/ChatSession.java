@@ -1,5 +1,6 @@
 package entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import entity.sql.UserInterImpl;
 
 import java.io.Serializable;
@@ -8,9 +9,17 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class ChatSession implements Serializable {
+
+    @JSONField(name = "sessionId")
     private String id;
+
+    @JSONField(name = "sessionName")
     private String sessionName;
+
+    @JSONField(name = "ownerId")
     private String ownerId;
+
+    @JSONField(name = "sessionMemberIds")
     private List<String> sessionMemberIds;
 
     public ChatSession(String id, String sessionName, String ownerId, List<String> sessionMemberids) {

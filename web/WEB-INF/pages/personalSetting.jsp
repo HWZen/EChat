@@ -28,28 +28,48 @@ New password: <input type="text" name="newPasswd" id="npwd" class="text"/><br/>
 <button onclick="changePasswd()">Change password</button>
 <br/>
 <br/>
-<h2>Add Friend</h2>
-<input id="newFriendId" type="text">
-<button onclick="addFriend()">Add Friend</button>
-<br/>
-<br/>
-
-<h2>Create group</h2>
-<div>New group name: </div><input id="newGroupName" type="text">
-<button onclick="createGroup()">Create Group</button>
-<br/>
-<br/>
-
-<h2>My groups</h2>
-<c:forEach items="${chatSessions}" var="group">
-    <c:if test="${group.getOwnerId() eq user.getId()}">
-        <ul>
+<h2>My Friends</h2>
+<ul>
+<c:forEach items="${chatSessions}" var="chatSession">
+    <c:if test="${chatSession.getOwnerId() eq 'admin'}">
             <li>
-                <div>${group.sessionName} </div> <button onclick="groupSetting(${group.getId()})">Edit</button>
+                <c:if test="${chatSession.getSessionMemberIds()[0] eq user.id}">
+                    <div>${chatSession.getSessionMembers()[1].getNickname()}</div>
+                </c:if>
+                <c:if test="${chatSession.getSessionMemberIds()[1] eq user.id}">
+                    <div>${chatSession.getSessionMembers()[0].getNickname()}</div>
+                </c:if>
+                <button onclick="deleteFriend(${chatSession.getId()})">Del</button>
             </li>
-        </ul>
     </c:if>
 </c:forEach>
+    <li>
+        <input id="newFriendId" type="text" value="New friend id">
+        <button onclick="addFriend()">Add Friend</button>
+    </li>
+</ul>
+<br/>
+<br/>
+
+
+
+<h2>My groups</h2>
+<ul>
+<c:forEach items="${chatSessions}" var="group">
+    <c:if test="${group.getOwnerId() eq user.getId()}">
+
+            <li>
+                <div>${group.sessionName} </div>
+                <button onclick="groupSetting(${group.getId()})">Edit</button> <button onclick="delGroup(${group.getId()})">Del</button>
+            </li>
+
+    </c:if>
+</c:forEach>
+            <li>
+                <input type="text" value="New group name" id="newGroupName">
+                <button onclick="createGroup()">Create Group</button>
+            </li>
+</ul>
 
 
 <script type="text/javascript">
@@ -83,6 +103,15 @@ New password: <input type="text" name="newPasswd" id="npwd" class="text"/><br/>
         document.body.removeChild(form);
     }
 
+    function  delGroup(groupId){
+        let form = document.createElement("form");
+        form.action = "personalSetting.jhtml?requireType=delGroup&groupId="+groupId;
+        form.method = "post";
+        document.body.appendChild(form);
+        form.submit();
+        document.body.removeChild(form);
+    }
+
     function addFriend(){
         let friendId = document.getElementById('newFriendId').value;
         let form = document.createElement("form");
@@ -92,6 +121,26 @@ New password: <input type="text" name="newPasswd" id="npwd" class="text"/><br/>
         form.submit();
         document.body.removeChild(form);
     }
+
+    function deleteFriend(sessionId){
+        let form = document.createElement("form");
+        form.action = "personalSetting.jhtml?requireType=deleteFriend&sessionId="+sessionId;
+        form.method = "post";
+        document.body.appendChild(form);
+        form.submit();
+        document.body.removeChild(form);
+    }
+
+    function createGroup(){
+        let groupName = document.getElementById('newGroupName').value;
+        let form = document.createElement("form");
+        form.action = "personalSetting.jhtml?requireType=createGroup&groupName="+groupName;
+        form.method = "post";
+        document.body.appendChild(form);
+        form.submit();
+        document.body.removeChild(form);
+    }
+
 </script>
 </body>
 </html>
